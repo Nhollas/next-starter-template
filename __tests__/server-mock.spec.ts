@@ -10,14 +10,18 @@ test("Our examples from SSR are rendered.", async ({
   port,
   http,
   requestInterceptor,
+  enablePreviewMode,
 }) => {
   const mockedExamples = Array.from({ length: 1 }, exampleGenerator)
+
+  console.log("mockedExamples:", mockedExamples)
 
   requestInterceptor.use(
     http.get("https://basecamp.proxy.beeceptor.com/api/examples", () =>
       HttpResponse.json(mockedExamples),
     ),
   )
+  const disablePreview = await enablePreviewMode(page)
   await page.goto(`http://localhost:${port}/ssr-examples`)
 
   await expect(
@@ -31,4 +35,6 @@ test("Our examples from SSR are rendered.", async ({
       ).toBeVisible()
     }),
   )
+
+  await disablePreview()
 })

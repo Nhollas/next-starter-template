@@ -35,17 +35,13 @@ export const test = base.extend<{
     await use(port)
   },
   requestInterceptor: async ({}, use) => {
-    await use(
-      (() => {
-        const requestInterceptor = setupServer()
+    const requestInterceptor = setupServer()
 
-        requestInterceptor.listen({
-          onUnhandledRequest: "bypass",
-        })
+    requestInterceptor.listen({
+      onUnhandledRequest: "warn",
+    })
 
-        return requestInterceptor
-      })(),
-    )
+    await use(requestInterceptor)
   },
   http,
   enablePreviewMode: async ({ port }, use) => {
@@ -59,6 +55,7 @@ export const test = base.extend<{
 
       return async function disablePreviewMode() {
         await page.goto(`${base}/api/exit-preview`)
+        await page.goto(base)
       }
     }
 

@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
 import { Inter } from "next/font/google"
-
 import "./globals.css"
+import { draftMode } from "next/headers"
+
 import { Providers } from "@/providers"
 
 const inter = Inter({ subsets: ["latin"] })
@@ -15,10 +16,17 @@ export default function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const test = draftMode()
+
+  console.log("draftmode", test.isEnabled)
+
   return (
     <Providers>
       <html lang="en">
         <body className={inter.className}>
+          <p className="text-3xl">
+            {test.isEnabled && "Draft Mode is enabled"}
+          </p>
           <main className="mx-auto min-h-screen max-w-6xl space-y-8 p-8 lg:p-16">
             {children}
           </main>

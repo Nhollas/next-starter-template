@@ -1,17 +1,12 @@
 import { ArrowLeft, ArrowRight } from "lucide-react"
-import { headers } from "next/headers"
 import Link from "next/link"
 
 import { Button } from "@/components/ui"
 import { ExampleCard, ExamplesGrid, getExamples } from "@/features/example"
 import { exampleClient } from "@/lib/clients"
 
-export default async function TestPage() {
+export default async function SSRPAGE() {
   const examples = await getExamples(exampleClient)
-
-  const headers2 = headers()
-
-  console.log("headers from server:", headers2)
 
   return (
     <section className="w-full space-y-8">
