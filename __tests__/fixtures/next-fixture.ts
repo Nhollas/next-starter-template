@@ -64,7 +64,6 @@ export const test = base.extend<
 
         return async function disablePreviewMode() {
           await page.goto(`${base}/api/exit-preview`)
-          await page.goto(base)
         }
       }
 
