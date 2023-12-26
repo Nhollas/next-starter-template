@@ -1,10 +1,11 @@
-/* eslint-disable */
 import LaunchDarkly, { LDClient, LDContext } from "launchdarkly-node-server-sdk"
+
+import { serverEnv } from "./env"
 
 let launchDarklyServerClient: LDClient | undefined = undefined
 
 async function initialize() {
-  const client = LaunchDarkly.init(process.env.LAUNCHDARKLY_SDK_KEY as string)
+  const client = LaunchDarkly.init(serverEnv().LAUNCHDARKLY_SDK_KEY)
   launchDarklyServerClient = await client.waitForInitialization()
 
   return launchDarklyServerClient
@@ -23,4 +24,6 @@ const getVariation = async (
   return ldClient.variation(flagKey, context, defaultValue)
 }
 
-export default { getClient, getVariation }
+const ldServer = { getClient, getVariation }
+
+export default ldServer

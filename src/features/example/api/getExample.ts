@@ -5,7 +5,7 @@ import { Example } from "@/types"
 
 export const getExample = async (exampleId: string) => {
   try {
-    const response = await client.get<Example>(`/example/${exampleId}`)
+    const response = await client().get<Example>(`/example/${exampleId}`)
 
     return response.data
   } catch (error) {

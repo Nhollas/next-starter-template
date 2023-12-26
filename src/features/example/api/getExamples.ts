@@ -5,7 +5,7 @@ import { Example } from "@/types"
 
 export const getExamples = async (axiosClient = client) => {
   try {
-    const response = await axiosClient.get<Example[]>(`/examples`)
+    const response = await axiosClient().get<Example[]>(`/examples`)
 
     return response.data
   } catch (error) {

@@ -8,6 +8,8 @@ import type { SetupServer } from "msw/node"
 import { setupServer } from "msw/node"
 import next from "next"
 
+import { serverEnv } from "@/lib/env"
+
 export const test = base.extend<
   { http: typeof http },
   {
@@ -59,7 +61,7 @@ export const test = base.extend<
         base = `http://localhost:${port}`,
       ) {
         await page.goto(
-          `${base}/api/preview?secret=${process.env.PREVIEW_SECRET}`,
+          `${base}/api/preview?secret=${serverEnv().DRAFTMODE_SECRET}`,
         )
 
         return async function disablePreviewMode() {

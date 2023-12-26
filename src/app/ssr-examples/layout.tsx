@@ -1,5 +1,7 @@
 import dynamic from "next/dynamic"
 
+import { serverEnv } from "@/lib/env"
+
 import Loading from "./loading"
 
 const AsyncLDProvider = dynamic(
@@ -11,9 +13,7 @@ const AsyncLDProvider = dynamic(
 )
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <AsyncLDProvider
-      clientSideID={process.env.NEXT_PUBLIC_LAUNCHDARKLY_CLIENT_ID as string}
-    >
+    <AsyncLDProvider clientSideID={serverEnv().LAUNCHDARKLY_CLIENT_ID}>
       {children}
     </AsyncLDProvider>
   )

@@ -7,7 +7,7 @@ import { Example } from "@/types"
 
 const updateExample = async (example: Example) => {
   try {
-    const response = await client.put(`/example`, example)
+    const response = await client().put(`/example`, example)
     return response.data
   } catch (error) {
     return Promise.reject(error)
