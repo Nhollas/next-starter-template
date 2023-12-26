@@ -8,12 +8,14 @@ import type { SetupServer } from "msw/node"
 import { setupServer } from "msw/node"
 import next from "next"
 
-export const test = base.extend<{
-  port: string
-  requestInterceptor: SetupServer
-  http: typeof http
-  enablePreviewMode: (page: Page) => Promise<() => Promise<void>>
-}>({
+export const test = base.extend<
+  { http: typeof http },
+  {
+    port: string
+    requestInterceptor: SetupServer
+    enablePreviewMode: (page: Page) => Promise<() => Promise<void>>
+  }
+>({
   port: [
     async ({}, use) => {
       const app = next({ dev: false })
