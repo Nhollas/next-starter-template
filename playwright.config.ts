@@ -15,8 +15,6 @@ dotenv.config({ path: path.resolve(__dirname, ".env.local") })
  */
 export default defineConfig({
   testDir: "./__tests__",
-  
-  // globalSetup: "./src/test/setup/playwright.global-setup.ts",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */

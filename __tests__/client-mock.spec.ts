@@ -7,8 +7,6 @@ import test from "./fixtures/next-fixture"
 test("Our examples from CSR are rendered.", async ({ page, port }) => {
   const mockedExamples = Array.from({ length: 1 }, exampleGenerator)
 
-  console.log("mockedExamples:", mockedExamples)
-
   await page.route("*/**/api/examples", async (route) => {
     const response = await route.fetch()
 

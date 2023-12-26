@@ -14,8 +14,6 @@ test("Our examples from SSR are rendered.", async ({
 }) => {
   const mockedExamples = Array.from({ length: 1 }, exampleGenerator)
 
-  console.log("mockedExamples:", mockedExamples)
-
   requestInterceptor.use(
     http.get("https://basecamp.proxy.beeceptor.com/api/examples", () =>
       HttpResponse.json(mockedExamples),
