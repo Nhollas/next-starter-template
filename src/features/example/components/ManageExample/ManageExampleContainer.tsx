@@ -36,6 +36,7 @@ export const ManageExampleContainer = ({
   return (
     <Form {...form}>
       <form
+        data-testid={example.id}
         onSubmit={form.handleSubmit(handleSubmit)}
         className="flex grow flex-col"
       >
