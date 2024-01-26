@@ -19,8 +19,8 @@ export default function Example() {
             href="/ssr-examples"
             className="flex flex-row items-start gap-x-2"
           >
-            <ArrowRight className="h-4 w-4" />
             SSR Examples
+            <ArrowRight className="h-4 w-4" />
           </Link>
         </Button>
       </div>

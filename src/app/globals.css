@@ -48,13 +48,6 @@
     --focused-outline-color: #4c9ffe;
   }
 
-  /* Media query for adjusting layout based on item 'b' height */
-  @media (min-height: 350px) {
-    .tall {
-      grid-column: span 2; /* 'b' takes up 2 columns */
-    }
-  }
-
   @media (prefers-color-scheme: dark) {
     :root {
       --background: 224 71% 4%;
@@ -112,4 +105,8 @@
     100% {
     }
   }
+}
+
+textarea {
+  field-sizing: content;
 }

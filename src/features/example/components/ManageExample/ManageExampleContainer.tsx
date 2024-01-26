@@ -27,6 +27,7 @@ export const ManageExampleContainer = ({
     form.setValue("isOpen", false)
     form.reset({ ...watch() })
   })
+
   const isOpen = form.watch("isOpen")
 
   const handleSubmit = async (values: UpdateExampleFormValues) => {
@@ -36,7 +37,6 @@ export const ManageExampleContainer = ({
   return (
     <Form {...form}>
       <form
-        data-testid={example.id}
         onSubmit={form.handleSubmit(handleSubmit)}
         className="flex grow flex-col"
       >
@@ -69,7 +69,7 @@ export const ManageExampleContainer = ({
             </motion.div>
           )}
         </AnimatePresence>
-        <ActionsFooter exampleId={example.id} />
+        <ActionsFooter example={example} />
       </form>
     </Form>
   )

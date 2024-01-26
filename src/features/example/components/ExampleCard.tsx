@@ -19,7 +19,11 @@ export const ExampleCard = forwardRef<
     example: Example
   }
 >(({ className, example }, ref) => (
-  <Card ref={ref} className={cn("flex aspect-square flex-col", className)}>
+  <Card
+    ref={ref}
+    className={cn("flex aspect-square flex-col", className)}
+    data-testid={`example-card-${example.id}`}
+  >
     <ManageExampleContainer example={example}>
       <CardHeader>
         <CardTitle className="overflow-hidden text-ellipsis">

@@ -88,5 +88,11 @@ module.exports = {
         "jest-dom/prefer-in-document": "off",
       },
     },
+    {
+      files: ["*.test.tsx"],
+      rules: {
+        "playwright/missing-playwright-await": "off",
+      },
+    },
   ],
 }

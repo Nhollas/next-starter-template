@@ -16,7 +16,7 @@ test("We can delete our examples", async ({ page, port }) => {
   await page.waitForResponse("**/api/examples")
 
   for (const example of mockedExamples) {
-    const form = page.getByTestId(example.id)
+    const form = page.getByTestId(`example-card-${example.id}`)
 
     await form.getByRole("button", { name: "Delete Example" }).click()
 

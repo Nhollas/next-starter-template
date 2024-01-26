@@ -25,8 +25,8 @@ export default async function SSRPAGE() {
             href="/design-system"
             className="flex flex-row items-start gap-x-2"
           >
-            <ArrowRight className="h-4 w-4" />
             Design System
+            <ArrowRight className="h-4 w-4" />
           </Link>
         </Button>
       </div>
