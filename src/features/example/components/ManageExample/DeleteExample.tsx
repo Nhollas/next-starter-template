@@ -17,6 +17,8 @@ import {
 
 import { useDeleteExampleMutation } from "../../api"
 
+import { AnimatedActionButton } from "./AnimatedActionButton"
+
 export const DeleteExample = ({ exampleId }: { exampleId: string }) => {
   const [isOpen, setIsOpen] = useState(false)
   const { mutate, isPending } = useDeleteExampleMutation(() => setIsOpen(false))
@@ -24,14 +26,15 @@ export const DeleteExample = ({ exampleId }: { exampleId: string }) => {
   return (
     <AlertDialog open={isOpen}>
       <AlertDialogTrigger asChild>
-        <Button
+        <AnimatedActionButton
+          layout
           variant="outline"
           className="aspect-square h-11"
           onClick={() => setIsOpen(true)}
         >
           <Trash className="h-6 w-6 flex-shrink-0" />
           <span className="sr-only">Delete Example</span>
-        </Button>
+        </AnimatedActionButton>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>

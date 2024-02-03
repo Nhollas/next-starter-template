@@ -22,10 +22,10 @@ export default async function SSRPAGE() {
         </Button>
         <Button variant="outline" asChild>
           <Link
-            href="/design-system"
+            href="/ssg-examples"
             className="flex flex-row items-start gap-x-2"
           >
-            Design System
+            SSG Examples
             <ArrowRight className="h-4 w-4" />
           </Link>
         </Button>

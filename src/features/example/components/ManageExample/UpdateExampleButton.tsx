@@ -1,12 +1,10 @@
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence } from "framer-motion"
 import { Pencil, RotateCw, Save } from "lucide-react"
 import { useFormContext } from "react-hook-form"
 
-import { Button } from "@/components/ui"
-
 import { UpdateExampleFormValues } from "../../hooks/useEditExampleForm"
 
-const AnimatedButton = motion(Button)
+import { AnimatedActionButton } from "./AnimatedActionButton"
 
 export const UpdateExampleButton = () => {
   const { watch, formState, setValue } =
@@ -18,18 +16,20 @@ export const UpdateExampleButton = () => {
 
   return (
     <>
-      <Button
+      <AnimatedActionButton
+        layout
         variant="outline"
         type="button"
-        className="aspect-square h-11"
+        className="z-20 aspect-square h-11"
         onClick={() => setValue("isOpen", !isOpen)}
       >
         <Pencil className="h-6 w-6 flex-shrink-0" />
         <span className="sr-only">Update Example</span>
-      </Button>
-      <AnimatePresence>
+      </AnimatedActionButton>
+      <AnimatePresence mode="popLayout">
         {isOpen && (
-          <AnimatedButton
+          <AnimatedActionButton
+            layout
             initial={{ opacity: 0, x: -50, scale: 0.5 }}
             animate={{ opacity: showDisabled ? 0.5 : 1, x: 0, scale: 1 }}
             exit={{ opacity: 0, x: -50, scale: 0.5 }}
@@ -39,7 +39,7 @@ export const UpdateExampleButton = () => {
             }}
             variant="outline"
             type="submit"
-            className="aspect-square h-11"
+            className="z-10 aspect-square h-11"
             disabled={showDisabled}
           >
             {formState.isSubmitting ? (
@@ -48,7 +48,7 @@ export const UpdateExampleButton = () => {
               <Save className="h-6 w-6 flex-shrink-0" />
             )}
             <span className="sr-only">Save</span>
-          </AnimatedButton>
+          </AnimatedActionButton>
         )}
       </AnimatePresence>
     </>

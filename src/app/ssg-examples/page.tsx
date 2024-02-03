@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
 import { Button } from "@/components/ui"
@@ -13,20 +13,11 @@ export default async function SSGPAGE() {
       <div className="flex justify-between">
         <Button variant="outline" asChild>
           <Link
-            href="/csr-examples"
+            href="/ssr-examples"
             className="flex flex-row items-start gap-x-2"
           >
             <ArrowLeft className="h-4 w-4" />
-            CSR Examples
-          </Link>
-        </Button>
-        <Button variant="outline" asChild>
-          <Link
-            href="/design-system"
-            className="flex flex-row items-start gap-x-2"
-          >
-            Design System
-            <ArrowRight className="h-4 w-4" />
+            SSR Examples
           </Link>
         </Button>
       </div>
