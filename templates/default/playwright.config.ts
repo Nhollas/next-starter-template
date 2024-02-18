@@ -14,7 +14,7 @@ dotenv.config({ path: path.resolve(__dirname, ".env.local") })
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: "./__tests__",
+  testDir: "./playwright",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */

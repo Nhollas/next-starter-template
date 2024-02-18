@@ -261,85 +261,95 @@ async function run(): Promise<void> {
     const getPrefOrDefault = (field: string) =>
       preferences[field] ?? defaults[field];
 
-    if (!program.typescript && !program.javascript) {
-      if (ciInfo.isCI) {
-        // default to TypeScript in CI as we can't prompt to
-        // prevent breaking setup flows
-        program.typescript = getPrefOrDefault("typescript");
-      } else {
-        const styledTypeScript = blue("TypeScript");
-        const { typescript } = await prompts(
-          {
-            type: "toggle",
-            name: "typescript",
-            message: `Would you like to use ${styledTypeScript}?`,
-            initial: getPrefOrDefault("typescript"),
-            active: "Yes",
-            inactive: "No",
-          },
-          {
-            /**
-             * User inputs Ctrl+C or Ctrl+D to exit the prompt. We should close the
-             * process and not write to the file system.
-             */
-            onCancel: () => {
-              console.error("Exiting.");
-              process.exit(1);
-            },
-          }
-        );
-        /**
-         * Depending on the prompt response, set the appropriate program flags.
-         */
-        program.typescript = Boolean(typescript);
-        program.javascript = !Boolean(typescript);
-        preferences.typescript = Boolean(typescript);
-      }
-    }
+    // if (!program.typescript && !program.javascript) {
+    //   if (ciInfo.isCI) {
+    //     // default to TypeScript in CI as we can't prompt to
+    //     // prevent breaking setup flows
+    //     program.typescript = getPrefOrDefault("typescript");
+    //   } else {
+    //     const styledTypeScript = blue("TypeScript");
+    //     const { typescript } = await prompts(
+    //       {
+    //         type: "toggle",
+    //         name: "typescript",
+    //         message: `Would you like to use ${styledTypeScript}?`,
+    //         initial: getPrefOrDefault("typescript"),
+    //         active: "Yes",
+    //         inactive: "No",
+    //       },
+    //       {
+    //         /**
+    //          * User inputs Ctrl+C or Ctrl+D to exit the prompt. We should close the
+    //          * process and not write to the file system.
+    //          */
+    //         onCancel: () => {
+    //           console.error("Exiting.");
+    //           process.exit(1);
+    //         },
+    //       }
+    //     );
+    //     /**
+    //      * Depending on the prompt response, set the appropriate program flags.
+    //      */
+    //     program.typescript = Boolean("true");
+    //     program.javascript = !Boolean("false");
+    //     preferences.typescript = Boolean("true");
+    //   }
+    // }
 
-    if (
-      !process.argv.includes("--eslint") &&
-      !process.argv.includes("--no-eslint")
-    ) {
-      if (ciInfo.isCI) {
-        program.eslint = getPrefOrDefault("eslint");
-      } else {
-        const styledEslint = blue("ESLint");
-        const { eslint } = await prompts({
-          onState: onPromptState,
-          type: "toggle",
-          name: "eslint",
-          message: `Would you like to use ${styledEslint}?`,
-          initial: getPrefOrDefault("eslint"),
-          active: "Yes",
-          inactive: "No",
-        });
-        program.eslint = Boolean(eslint);
-        preferences.eslint = Boolean(eslint);
-      }
-    }
+    program.typescript = Boolean("true");
+    program.javascript = !Boolean("false");
+    preferences.typescript = Boolean("true");
 
-    if (
-      !process.argv.includes("--tailwind") &&
-      !process.argv.includes("--no-tailwind")
-    ) {
-      if (ciInfo.isCI) {
-        program.tailwind = getPrefOrDefault("tailwind");
-      } else {
-        const tw = blue("Tailwind CSS");
-        const { tailwind } = await prompts({
-          onState: onPromptState,
-          type: "toggle",
-          name: "tailwind",
-          message: `Would you like to use ${tw}?`,
-          initial: getPrefOrDefault("tailwind"),
-          active: "Yes",
-          inactive: "No",
-        });
-        program.tailwind = Boolean(tailwind);
-        preferences.tailwind = Boolean(tailwind);
-      }
-    }
+    // if (
+    //   !process.argv.includes("--eslint") &&
+    //   !process.argv.includes("--no-eslint")
+    // ) {
+    //   if (ciInfo.isCI) {
+    //     program.eslint = getPrefOrDefault("eslint");
+    //   } else {
+    //     const styledEslint = blue("ESLint");
+    //     const { eslint } = await prompts({
+    //       onState: onPromptState,
+    //       type: "toggle",
+    //       name: "eslint",
+    //       message: `Would you like to use ${styledEslint}?`,
+    //       initial: getPrefOrDefault("eslint"),
+    //       active: "Yes",
+    //       inactive: "No",
+    //     });
+    //     program.eslint = Boolean(eslint);
+    //     preferences.eslint = Boolean(eslint);
+    //   }
+    // }
+
+    program.eslint = Boolean("true");
+    preferences.eslint = Boolean("true");
+
+    // if (
+    //   !process.argv.includes("--tailwind") &&
+    //   !process.argv.includes("--no-tailwind")
+    // ) {
+    //   if (ciInfo.isCI) {
+    //     program.tailwind = getPrefOrDefault("tailwind");
+    //   } else {
+    //     const tw = blue("Tailwind CSS");
+    //     const { tailwind } = await prompts({
+    //       onState: onPromptState,
+    //       type: "toggle",
+    //       name: "tailwind",
+    //       message: `Would you like to use ${tw}?`,
+    //       initial: getPrefOrDefault("tailwind"),
+    //       active: "Yes",
+    //       inactive: "No",
+    //     });
+    //     program.tailwind = Boolean(tailwind);
+    //     preferences.tailwind = Boolean(tailwind);
+    //   }
+    // }
+
+    program.tailwind = Boolean("true");
+    preferences.tailwind = Boolean("true");
 
     if (
       !process.argv.includes("--src-dir") &&
@@ -363,23 +373,25 @@ async function run(): Promise<void> {
       }
     }
 
-    if (!process.argv.includes("--app") && !process.argv.includes("--no-app")) {
-      if (ciInfo.isCI) {
-        program.app = getPrefOrDefault("app");
-      } else {
-        const styledAppDir = blue("App Router");
-        const { appRouter } = await prompts({
-          onState: onPromptState,
-          type: "toggle",
-          name: "appRouter",
-          message: `Would you like to use ${styledAppDir}? (recommended)`,
-          initial: getPrefOrDefault("app"),
-          active: "Yes",
-          inactive: "No",
-        });
-        program.app = Boolean(appRouter);
-      }
-    }
+    // if (!process.argv.includes("--app") && !process.argv.includes("--no-app")) {
+    //   if (ciInfo.isCI) {
+    //     program.app = getPrefOrDefault("app");
+    //   } else {
+    //     const styledAppDir = blue("App Router");
+    //     const { appRouter } = await prompts({
+    //       onState: onPromptState,
+    //       type: "toggle",
+    //       name: "appRouter",
+    //       message: `Would you like to use ${styledAppDir}? (recommended)`,
+    //       initial: getPrefOrDefault("app"),
+    //       active: "Yes",
+    //       inactive: "No",
+    //     });
+    //     program.app = Boolean(appRouter);
+    //   }
+    // }
+
+    program.app = Boolean("true");
 
     if (
       typeof program.importAlias !== "string" ||

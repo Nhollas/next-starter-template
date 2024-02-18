@@ -63,7 +63,6 @@ export async function createApp({
   await installTemplate({
     appName,
     root,
-    mode,
     isOnline,
     srcDir,
     importAlias,

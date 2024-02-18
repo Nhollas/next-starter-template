@@ -21,16 +21,9 @@
     ],
     "paths": {
       "@/*": ["./src/*"],
-      "@/e2e/*": ["./__tests__/*"]
+      "@/e2e/*": ["./playwright/*"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "test/setup/jest.global-setup.ts",
-    "test/setup/jest.global-teardown.ts"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]
 }

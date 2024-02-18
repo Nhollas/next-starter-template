@@ -22,7 +22,18 @@ export const getTemplateFile = ({
   return path.join(__dirname, template, mode, file);
 };
 
-export const SRC_DIR_NAMES = ["app", "pages", "styles"];
+export const SRC_DIR_NAMES = [
+  "app",
+  "pages",
+  "styles",
+  "components",
+  "lib",
+  "features",
+  "test",
+  "types",
+  "providers",
+  "public",
+];
 
 /**
  * Install a Next.js internal template to a given `root` directory.
@@ -31,7 +42,6 @@ export const installTemplate = async ({
   appName,
   root,
   isOnline,
-  mode = "ts",
   srcDir,
   importAlias,
 }: InstallTemplateArgs) => {
@@ -43,7 +53,9 @@ export const installTemplate = async ({
    * Copy the template files to the target directory.
    */
   console.log("\nInitializing project with template:", template, "\n");
-  const templatePath = path.join(__dirname, template, mode);
+  const templatePath = path.join(__dirname, template);
+
+  console.log("Copying files from:", templatePath);
   const copySource = ["**"];
 
   await copy(copySource, root, {
@@ -121,20 +133,14 @@ export const installTemplate = async ({
       })
     );
 
-    const isAppTemplate = template.startsWith("app");
-
     // Change the `Get started by editing pages/index` / `app/page` to include `src`
-    const indexPageFile = path.join(
-      "src",
-      isAppTemplate ? "app" : "pages",
-      `${isAppTemplate ? "page" : "index"}.${mode === "ts" ? "tsx" : "js"}`
-    );
+    const indexPageFile = path.join("src", "app", `page.tsx`);
 
     await fs.writeFile(
       indexPageFile,
       (await fs.readFile(indexPageFile, "utf8")).replace(
-        isAppTemplate ? "app/page" : "pages/index",
-        isAppTemplate ? "src/app/page" : "src/pages/index"
+        "app/page",
+        "src/app/page"
       )
     );
   }
@@ -250,26 +256,12 @@ export const installTemplate = async ({
       postcss: "^8",
       prettier: "^3.1.0",
       "prettier-plugin-tailwindcss": "^0.5.7",
-      specmatic: "^0.81.0",
       tailwindcss: "^3.4.0",
       "ts-jest": "^29.1.1",
       typescript: "^5",
       undici: "^5.28.2",
     },
   };
-
-  /**
-   * TypeScript projects will have type definitions and other devDependencies.
-   */
-  if (mode === "ts") {
-    packageJson.devDependencies = {
-      ...packageJson.devDependencies,
-      typescript: "^5",
-      "@types/node": "^20",
-      "@types/react": "^18",
-      "@types/react-dom": "^18",
-    };
-  }
 
   /* Add Tailwind CSS dependencies. */
 

@@ -1,6 +1,6 @@
 import { Locator, expect } from "@playwright/test"
 
-import test from "@/e2e/fixtures/next-fixture"
+import test from "../../fixtures/next-fixture"
 import { exampleGenerator } from "../../../test/data-generators"
 
 test("We can duplicate our examples", async ({ page, port }) => {
