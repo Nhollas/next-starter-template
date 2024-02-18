@@ -1,5 +1,5 @@
 "use client"
-import { AnimatePresence, motion } from "framer-motion"
+import { motion } from "framer-motion"
 
 import { Form } from "@/components/ui"
 import { Example } from "@/types"
@@ -9,6 +9,7 @@ import {
   UpdateExampleFormValues,
   useEditExampleForm,
 } from "../../hooks/useEditExampleForm"
+import AnimatePresenceWrapper from "../AnimatePresenceWrapper"
 
 import { ActionsFooter } from "./ActionsFooter"
 import { AnimatedEditExample } from "./AnimatedEditExample"
@@ -40,7 +41,7 @@ export const ManageExampleContainer = ({
         onSubmit={form.handleSubmit(handleSubmit)}
         className="flex grow flex-col"
       >
-        <AnimatePresence mode="popLayout">
+        <AnimatePresenceWrapper mode="popLayout">
           {isOpen ? (
             <AnimatedEditExample
               form={form}
@@ -68,7 +69,7 @@ export const ManageExampleContainer = ({
               {children}
             </motion.div>
           )}
-        </AnimatePresence>
+        </AnimatePresenceWrapper>
         <ActionsFooter example={example} />
       </form>
     </Form>

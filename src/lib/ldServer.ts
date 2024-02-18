@@ -5,7 +5,9 @@ import { serverEnv } from "./env"
 let launchDarklyServerClient: LDClient | undefined = undefined
 
 async function initialize() {
-  const client = LaunchDarkly.init(serverEnv().LAUNCHDARKLY_SDK_KEY)
+  const { LAUNCHDARKLY_SDK_KEY } = serverEnv()
+
+  const client = LaunchDarkly.init(LAUNCHDARKLY_SDK_KEY)
   launchDarklyServerClient = await client.waitForInitialization()
 
   return launchDarklyServerClient

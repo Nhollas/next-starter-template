@@ -1,12 +1,10 @@
-"use client"
-import { AnimatePresence } from "framer-motion"
-
 import { Example } from "@/types"
 
 import { AnimatedExampleCard } from "./AnimatedExampleCard"
+import AnimatePresenceWrapper from "./AnimatePresenceWrapper"
 
 export const Examples = ({ examples }: { examples: Example[] }) => (
-  <AnimatePresence mode="popLayout">
+  <AnimatePresenceWrapper mode="popLayout">
     {examples.map((example) => (
       <AnimatedExampleCard
         layout
@@ -21,5 +19,5 @@ export const Examples = ({ examples }: { examples: Example[] }) => (
         className="bg-secondary"
       />
     ))}
-  </AnimatePresence>
+  </AnimatePresenceWrapper>
 )

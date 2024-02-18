@@ -1,8 +1,8 @@
-import { AnimatePresence } from "framer-motion"
 import { Pencil, RotateCw, Save } from "lucide-react"
 import { useFormContext } from "react-hook-form"
 
 import { UpdateExampleFormValues } from "../../hooks/useEditExampleForm"
+import AnimatePresenceWrapper from "../AnimatePresenceWrapper"
 
 import { AnimatedActionButton } from "./AnimatedActionButton"
 
@@ -26,7 +26,7 @@ export const UpdateExampleButton = () => {
         <Pencil className="h-6 w-6 flex-shrink-0" />
         <span className="sr-only">Update Example</span>
       </AnimatedActionButton>
-      <AnimatePresence mode="popLayout">
+      <AnimatePresenceWrapper mode="popLayout">
         {isOpen && (
           <AnimatedActionButton
             layout
@@ -50,7 +50,7 @@ export const UpdateExampleButton = () => {
             <span className="sr-only">Save</span>
           </AnimatedActionButton>
         )}
-      </AnimatePresence>
+      </AnimatePresenceWrapper>
     </>
   )
 }

@@ -10,7 +10,7 @@ import {
 } from "./ExampleCard"
 
 export function ExampleContainer({ exampleId }: { exampleId: string }) {
-  const { isLoading, isError, data } = useExampleQuery(exampleId)
+  const { isLoading, isError, data: example } = useExampleQuery(exampleId)
 
   if (isLoading) {
     return <ExampleCardSkeleton />
@@ -20,9 +20,9 @@ export function ExampleContainer({ exampleId }: { exampleId: string }) {
     return <ExampleCardError />
   }
 
-  if (!data) {
+  if (!example) {
     return <ExampleCardNotFound />
   }
 
-  return <ExampleCard example={data} className="bg-secondary" />
+  return <ExampleCard example={example} className="bg-secondary" />
 }

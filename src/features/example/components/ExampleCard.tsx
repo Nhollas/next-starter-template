@@ -21,7 +21,7 @@ export const ExampleCard = forwardRef<
 >(({ className, example }, ref) => (
   <Card
     ref={ref}
-    className={cn("flex aspect-square flex-col", className)}
+    className={cn("flex flex-col", className)}
     data-testid={`example-card-${example.id}`}
   >
     <ManageExampleContainer example={example}>
