@@ -1,5 +1,5 @@
 import Home from "./page"
-import { renderWithProviders, resolveComponent, screen } from "../test/utils"
+import { renderWithProviders, resolveComponent, screen } from "@/test/utils"
 
 test("Our page has the title of 'Nextjs Starter Template'", async () => {
   const HomePageResolved = await resolveComponent(Home, {

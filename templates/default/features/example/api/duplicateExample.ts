@@ -1,9 +1,9 @@
 "use client"
 import { useMutation } from "@tanstack/react-query"
 
-import { client } from "../../../lib/clients"
-import { queryClient } from "../../../lib/react-query"
-import { Example } from "../../../types"
+import { client } from "@/lib/clients"
+import { queryClient } from "@/lib/react-query"
+import { Example } from "@/types"
 
 const duplicateExample = async (example: Example): Promise<Example> => {
   try {

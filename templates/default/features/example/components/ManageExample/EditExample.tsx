@@ -9,7 +9,7 @@ import {
   FormItem,
   FormMessage,
   Textarea,
-} from "../../../../components/ui"
+} from "@/components/ui"
 
 import { UpdateExampleFormValues } from "../../hooks/useEditExampleForm"
 

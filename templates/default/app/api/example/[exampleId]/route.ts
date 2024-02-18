@@ -1,4 +1,4 @@
-import { exampleGenerator } from "../../../../test/data-generators"
+import { exampleGenerator } from "@/test/data-generators"
 
 export async function GET(
   request: Request,

@@ -1,7 +1,7 @@
 "use client"
 import { CopyPlus } from "lucide-react"
 
-import { Example } from "../../../../types"
+import { Example } from "@/types"
 
 import { useDuplicateExampleMutation } from "../../api"
 

@@ -1,9 +1,9 @@
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
-import { Button } from "../../components/ui"
-import { ExampleCard, ExamplesGrid, getExamples } from "../../features/example"
-import { exampleClient } from "../../lib/clients"
+import { Button } from "@/components/ui"
+import { ExampleCard, ExamplesGrid, getExamples } from "@/features/example"
+import { exampleClient } from "@/lib/clients"
 
 export default async function SSRPAGE() {
   const examples = await getExamples(exampleClient)

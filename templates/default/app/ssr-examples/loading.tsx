@@ -1,8 +1,8 @@
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
-import { Button } from "../../components/ui"
-import { ExampleCardSkeleton, ExamplesGrid } from "../../features/example"
+import { Button } from "@/components/ui"
+import { ExampleCardSkeleton, ExamplesGrid } from "@/features/example"
 
 export default function Loading() {
   return (

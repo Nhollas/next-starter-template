@@ -2,7 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
-import { Example } from "../../../types"
+import { Example } from "@/types"
 
 const updateExampleSchema = z.object({
   title: z.string().min(1, { message: "Title cannot be empty." }),

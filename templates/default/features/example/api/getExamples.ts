@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
 
-import { client } from "../../../lib/clients"
-import { Example } from "../../../types"
+import { client } from "@/lib/clients"
+import { Example } from "@/types"
 
 export const getExamples = async (axiosClient = client) => {
   try {

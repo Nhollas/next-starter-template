@@ -7,9 +7,9 @@ import {
   CardHeader,
   CardTitle,
   Skeleton,
-} from "../../../components/ui"
-import { cn } from "../../../lib/utils"
-import { Example } from "../../../types"
+} from "@/components/ui"
+import { cn } from "@/lib/utils"
+import { Example } from "@/types"
 
 import { ManageExampleContainer } from "./ManageExample"
 

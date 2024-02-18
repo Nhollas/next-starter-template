@@ -1,8 +1,8 @@
 /**
  * @jest-environment node
  */
-import { createMockRequest } from "../../../../test/route-handlers"
-import { Example } from "../../../../types"
+import { createMockRequest } from "@/test/route-handlers"
+import { Example } from "@/types"
 
 import { DELETE, GET } from "./route"
 

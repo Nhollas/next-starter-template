@@ -1,4 +1,4 @@
-import { HomeCard } from "../components/home-card"
+import { HomeCard } from "@/components/home-card"
 
 export default function Home() {
   return (

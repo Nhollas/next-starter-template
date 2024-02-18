@@ -2,7 +2,7 @@
 
 import { QueryClientProvider as QCP } from "@tanstack/react-query"
 
-import { queryClient } from "../lib/react-query"
+import { queryClient } from "@/lib/react-query"
 
 function QueryClientProvider({ children }: React.PropsWithChildren) {
   return <QCP client={queryClient}>{children}</QCP>

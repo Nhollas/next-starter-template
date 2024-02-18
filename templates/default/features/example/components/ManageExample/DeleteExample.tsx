@@ -13,7 +13,7 @@ import {
   AlertDialogCancel,
   AlertDialogDescription,
   AlertDialogTitle,
-} from "../../../../components/ui"
+} from "@/components/ui"
 
 import { useDeleteExampleMutation } from "../../api"
 

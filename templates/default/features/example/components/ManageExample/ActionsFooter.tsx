@@ -1,5 +1,5 @@
-import { CardFooter } from "../../../../components/ui"
-import { Example } from "../../../../types"
+import { CardFooter } from "@/components/ui"
+import { Example } from "@/types"
 
 import { DeleteExample } from "./DeleteExample"
 import { DuplicateExampleButton } from "./DuplicateExampleButton"

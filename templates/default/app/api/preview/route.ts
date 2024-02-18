@@ -1,7 +1,7 @@
 import { draftMode } from "next/headers"
 import { redirect } from "next/navigation"
 
-import { serverEnv } from "../../../lib/env"
+import { serverEnv } from "@/lib/env"
 
 export async function GET(request: Request) {
   // Parse query string parameters

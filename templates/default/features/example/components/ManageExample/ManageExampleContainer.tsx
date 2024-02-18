@@ -1,8 +1,8 @@
 "use client"
 import { motion } from "framer-motion"
 
-import { Form } from "../../../../components/ui"
-import { Example } from "../../../../types"
+import { Form } from "@/components/ui"
+import { Example } from "@/types"
 
 import { useUpdateExampleMutation } from "../../api/updateExample"
 import {

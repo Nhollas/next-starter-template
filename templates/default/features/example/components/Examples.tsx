@@ -1,4 +1,4 @@
-import { Example } from "../../../types"
+import { Example } from "@/types"
 
 import { AnimatedExampleCard } from "./AnimatedExampleCard"
 import AnimatePresenceWrapper from "./AnimatePresenceWrapper"
