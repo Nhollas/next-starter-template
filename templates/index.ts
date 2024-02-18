@@ -30,16 +30,14 @@ export const SRC_DIR_NAMES = ["app", "pages", "styles"];
 export const installTemplate = async ({
   appName,
   root,
-  packageManager,
   isOnline,
-  template,
-  mode,
-  tailwind,
-  eslint,
+  mode = "ts",
   srcDir,
   importAlias,
 }: InstallTemplateArgs) => {
-  console.log(bold(`Using ${packageManager}.`));
+  console.log(bold(`Using npm.`));
+
+  const template = "default";
 
   /**
    * Copy the template files to the target directory.
@@ -47,12 +45,6 @@ export const installTemplate = async ({
   console.log("\nInitializing project with template:", template, "\n");
   const templatePath = path.join(__dirname, template, mode);
   const copySource = ["**"];
-  if (!eslint) copySource.push("!eslintrc.json");
-  if (!tailwind)
-    copySource.push(
-      mode == "ts" ? "tailwind.config.ts" : "!tailwind.config.js",
-      "!postcss.config.js"
-    );
 
   await copy(copySource, root, {
     parents: true,
@@ -75,10 +67,7 @@ export const installTemplate = async ({
     },
   });
 
-  const tsconfigFile = path.join(
-    root,
-    mode === "js" ? "jsconfig.json" : "tsconfig.json"
-  );
+  const tsconfigFile = path.join(root, "tsconfig.json");
   await fs.writeFile(
     tsconfigFile,
     (await fs.readFile(tsconfigFile, "utf8"))
@@ -148,20 +137,6 @@ export const installTemplate = async ({
         isAppTemplate ? "src/app/page" : "src/pages/index"
       )
     );
-
-    if (tailwind) {
-      const tailwindConfigFile = path.join(
-        root,
-        mode === "ts" ? "tailwind.config.ts" : "tailwind.config.js"
-      );
-      await fs.writeFile(
-        tailwindConfigFile,
-        (await fs.readFile(tailwindConfigFile, "utf8")).replace(
-          /\.\/(\w+)\/\*\*\/\*\.\{js,ts,jsx,tsx,mdx\}/g,
-          "./src/$1/**/*.{js,ts,jsx,tsx,mdx}"
-        )
-      );
-    }
   }
 
   /** Copy the version from package.json or override for tests. */
@@ -176,7 +151,18 @@ export const installTemplate = async ({
       dev: "next dev",
       build: "next build",
       start: "next start",
-      lint: "next lint",
+      playwright: "playwright test",
+      "test:e2e": "run-s build playwright",
+      "test:jest": "jest --detectOpenHandles",
+      "test:coverage": "CI=1 yarn test:jest -- --coverage",
+      prettier:
+        'prettier --ignore-path .gitignore --write "**/*.+(js|json|ts|tsx)"',
+      format: "npm run prettier -- --write",
+      "check:lint":
+        "eslint --fix --ext .js,.ts,.tsx ./src --ignore-path .eslintignore",
+      "check:types": "tsc --project tsconfig.json --pretty --noEmit",
+      "check:format": "npm run prettier -- --list-different",
+      validate: "run-s check:lint check:types check:format test:jest test:e2e",
     },
     /**
      * Default dependencies.
@@ -185,8 +171,91 @@ export const installTemplate = async ({
       react: "^18",
       "react-dom": "^18",
       next: version,
+      "@hookform/resolvers": "^3.3.2",
+      "@radix-ui/react-accordion": "^1.1.2",
+      "@radix-ui/react-alert-dialog": "^1.0.5",
+      "@radix-ui/react-aspect-ratio": "^1.0.3",
+      "@radix-ui/react-avatar": "^1.0.4",
+      "@radix-ui/react-checkbox": "^1.0.4",
+      "@radix-ui/react-collapsible": "^1.0.3",
+      "@radix-ui/react-context-menu": "^2.1.5",
+      "@radix-ui/react-dialog": "^1.0.5",
+      "@radix-ui/react-dropdown-menu": "^2.0.6",
+      "@radix-ui/react-hover-card": "^1.0.7",
+      "@radix-ui/react-label": "^2.0.2",
+      "@radix-ui/react-popover": "^1.0.7",
+      "@radix-ui/react-progress": "^1.0.3",
+      "@radix-ui/react-radio-group": "^1.1.3",
+      "@radix-ui/react-scroll-area": "^1.0.5",
+      "@radix-ui/react-select": "^2.0.0",
+      "@radix-ui/react-slider": "^1.1.2",
+      "@radix-ui/react-slot": "^1.0.2",
+      "@radix-ui/react-switch": "^1.0.3",
+      "@radix-ui/react-tabs": "^1.0.4",
+      "@radix-ui/react-toast": "^1.1.5",
+      "@radix-ui/react-toggle": "^1.0.3",
+      "@radix-ui/react-toggle-group": "^1.0.4",
+      "@radix-ui/react-tooltip": "^1.0.7",
+      "@tanstack/react-query": "^5.14.1",
+      axios: "^1.6.2",
+      "class-variance-authority": "^0.7.0",
+      clsx: "^2.0.0",
+      cmdk: "^0.2.0",
+      "date-fns": "^2.30.0",
+      dotenv: "^16.3.1",
+      "framer-motion": "^10.16.16",
+      "launchdarkly-node-server-sdk": "^7.0.3",
+      "launchdarkly-react-client-sdk": "^3.0.10",
+      "lucide-react": "^0.294.0",
+      "playwright-msw": "^3.0.1",
+      "react-day-picker": "^8.9.1",
+      "react-hook-form": "^7.48.2",
+      "server-only": "^0.0.1",
+      "tailwind-merge": "^2.0.0",
+      "tailwindcss-animate": "^1.0.7",
+      zod: "^3.22.4",
     },
-    devDependencies: {},
+    devDependencies: {
+      "@faker-js/faker": "^8.3.1",
+      "@next/eslint-plugin-next": "^14.0.4",
+      "@playwright/test": "^1.40.1",
+      "@tailwindcss/container-queries": "^0.1.1",
+      "@testing-library/jest-dom": "^6.1.4",
+      "@testing-library/react": "^14.1.2",
+      "@types/jest": "^29.5.10",
+      "@types/node": "^20",
+      "@types/react": "^18",
+      "@types/react-dom": "^18",
+      "@typescript-eslint/eslint-plugin": "^6.13.1",
+      "@typescript-eslint/parser": "^6.13.1",
+      autoprefixer: "^10.0.1",
+      eslint: "^8",
+      "eslint-config-next": "14.0.3",
+      "eslint-config-prettier": "^9.0.0",
+      "eslint-import-resolver-typescript": "^3.6.1",
+      "eslint-plugin-cypress": "^2.15.1",
+      "eslint-plugin-import": "^2.29.0",
+      "eslint-plugin-jest-dom": "^5.1.0",
+      "eslint-plugin-jsx-a11y": "^6.8.0",
+      "eslint-plugin-playwright": "^0.19.0",
+      "eslint-plugin-prettier": "^5.0.1",
+      "eslint-plugin-react": "^7.33.2",
+      "eslint-plugin-react-hooks": "^4.6.0",
+      "eslint-plugin-testing-library": "^6.2.0",
+      jest: "^29.7.0",
+      "jest-environment-jsdom": "^29.7.0",
+      "lint-staged": "^15.1.0",
+      msw: "^2.0.9",
+      "npm-run-all": "^4.1.5",
+      postcss: "^8",
+      prettier: "^3.1.0",
+      "prettier-plugin-tailwindcss": "^0.5.7",
+      specmatic: "^0.81.0",
+      tailwindcss: "^3.4.0",
+      "ts-jest": "^29.1.1",
+      typescript: "^5",
+      undici: "^5.28.2",
+    },
   };
 
   /**
@@ -203,22 +272,8 @@ export const installTemplate = async ({
   }
 
   /* Add Tailwind CSS dependencies. */
-  if (tailwind) {
-    packageJson.devDependencies = {
-      ...packageJson.devDependencies,
-      postcss: "^8",
-      tailwindcss: "^3.4.1",
-    };
-  }
 
   /* Default ESLint dependencies. */
-  if (eslint) {
-    packageJson.devDependencies = {
-      ...packageJson.devDependencies,
-      eslint: "^8",
-      "eslint-config-next": version,
-    };
-  }
 
   const devDeps = Object.keys(packageJson.devDependencies).length;
   if (!devDeps) delete packageJson.devDependencies;
@@ -240,7 +295,7 @@ export const installTemplate = async ({
 
   console.log();
 
-  await install(packageManager, isOnline);
+  await install("npm", isOnline);
 };
 
 export * from "./types";

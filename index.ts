@@ -426,13 +426,6 @@ async function run(): Promise<void> {
   try {
     await createApp({
       appPath: resolvedProjectPath,
-      packageManager,
-      example: example && example !== "default" ? example : undefined,
-      examplePath: program.examplePath,
-      typescript: program.typescript,
-      tailwind: program.tailwind,
-      eslint: program.eslint,
-      appRouter: program.app,
       srcDir: program.srcDir,
       importAlias: program.importAlias,
     });
@@ -456,11 +449,6 @@ async function run(): Promise<void> {
 
     await createApp({
       appPath: resolvedProjectPath,
-      packageManager,
-      typescript: program.typescript,
-      eslint: program.eslint,
-      tailwind: program.tailwind,
-      appRouter: program.app,
       srcDir: program.srcDir,
       importAlias: program.importAlias,
     });

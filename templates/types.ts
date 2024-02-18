@@ -12,13 +12,8 @@ export interface GetTemplateFileArgs {
 export interface InstallTemplateArgs {
   appName: string;
   root: string;
-  packageManager: PackageManager;
   isOnline: boolean;
-
-  template: TemplateType;
   mode: TemplateMode;
-  eslint: boolean;
-  tailwind: boolean;
   srcDir: boolean;
   importAlias: string;
 }

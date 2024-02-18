@@ -29,8 +29,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/test/setup/jest.global-setup.ts",
-    "src/test/setup/jest.global-teardown.ts"
+    "test/setup/jest.global-setup.ts",
+    "test/setup/jest.global-teardown.ts"
   ],
   "exclude": ["node_modules"]
 }
