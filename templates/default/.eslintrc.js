@@ -82,7 +82,7 @@ module.exports = {
       },
     },
     {
-      files: ["*.spec.ts"],
+      files: ["*.e2e.ts"],
       rules: {
         "testing-library/prefer-screen-queries": "off",
         "jest-dom/prefer-in-document": "off",

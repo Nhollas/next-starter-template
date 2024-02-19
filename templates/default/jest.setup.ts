@@ -1,5 +1,5 @@
 import "@testing-library/react"
-import { server } from "./test/server"
+import { server } from "./src/test/server"
 
 beforeAll(() => server.listen({ onUnhandledRequest: "error" }))
 afterAll(() => server.close())

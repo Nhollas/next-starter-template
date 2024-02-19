@@ -1,7 +1,7 @@
 import { Locator, expect } from "@playwright/test"
 
-import test from "../../fixtures/next-fixture"
 import { exampleGenerator } from "../../../test/data-generators"
+import test from "../../fixtures/next-fixture"
 
 test("We can duplicate our examples", async ({ page, port }) => {
   const mockedExamples = Array.from({ length: 3 }, exampleGenerator)

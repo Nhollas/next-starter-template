@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker"
 import { HttpResponse, http } from "msw"
 
+import { ExamplesContainer } from ".."
 import { exampleGenerator } from "../../../../test/data-generators"
 import { server } from "../../../../test/server"
 import {
@@ -10,8 +11,6 @@ import {
   waitFor,
   within,
 } from "../../../../test/utils"
-
-import { ExamplesContainer } from ".."
 
 /* 
     Requirement for feature:

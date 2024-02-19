@@ -20,8 +20,8 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"],
-      "@/e2e/*": ["./playwright/*"]
+      "@/*": ["./src/*"],
+      "@/e2e/*": ["./src/playwright/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

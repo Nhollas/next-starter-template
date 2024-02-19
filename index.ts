@@ -351,27 +351,30 @@ async function run(): Promise<void> {
     program.tailwind = Boolean("true");
     preferences.tailwind = Boolean("true");
 
-    if (
-      !process.argv.includes("--src-dir") &&
-      !process.argv.includes("--no-src-dir")
-    ) {
-      if (ciInfo.isCI) {
-        program.srcDir = getPrefOrDefault("srcDir");
-      } else {
-        const styledSrcDir = blue("`src/` directory");
-        const { srcDir } = await prompts({
-          onState: onPromptState,
-          type: "toggle",
-          name: "srcDir",
-          message: `Would you like to use ${styledSrcDir}?`,
-          initial: getPrefOrDefault("srcDir"),
-          active: "Yes",
-          inactive: "No",
-        });
-        program.srcDir = Boolean(srcDir);
-        preferences.srcDir = Boolean(srcDir);
-      }
-    }
+    // if (
+    //   !process.argv.includes("--src-dir") &&
+    //   !process.argv.includes("--no-src-dir")
+    // ) {
+    //   if (ciInfo.isCI) {
+    //     program.srcDir = getPrefOrDefault("srcDir");
+    //   } else {
+    //     const styledSrcDir = blue("`src/` directory");
+    //     const { srcDir } = await prompts({
+    //       onState: onPromptState,
+    //       type: "toggle",
+    //       name: "srcDir",
+    //       message: `Would you like to use ${styledSrcDir}?`,
+    //       initial: getPrefOrDefault("srcDir"),
+    //       active: "Yes",
+    //       inactive: "No",
+    //     });
+    //     program.srcDir = Boolean(srcDir);
+    //     preferences.srcDir = Boolean(srcDir);
+    //   }
+    // }
+
+    program.srcDir = Boolean("true");
+    preferences.srcDir = Boolean("true");
 
     // if (!process.argv.includes("--app") && !process.argv.includes("--no-app")) {
     //   if (ciInfo.isCI) {

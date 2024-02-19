@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test"
 
-import test from "../../fixtures/next-fixture"
 import { exampleGenerator } from "../../../test/data-generators"
+import test from "../../fixtures/next-fixture"
 
 test("We can edit our examples", async ({ page, port }) => {
   const mockedExamples = Array.from({ length: 1 }, exampleGenerator)

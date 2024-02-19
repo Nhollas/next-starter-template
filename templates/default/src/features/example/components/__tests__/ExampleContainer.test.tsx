@@ -1,11 +1,10 @@
 import { HttpResponse, http } from "msw"
 
+import { ExampleContainer } from ".."
 import { exampleGenerator } from "../../../../test/data-generators"
 import { server } from "../../../../test/server"
 import { renderWithProviders, screen, waitFor } from "../../../../test/utils"
 import { Example } from "../../../../types"
-
-import { ExampleContainer } from ".."
 
 test("ExampleContainer displays loading state", async () => {
   renderWithProviders(<ExampleContainer exampleId="123" />)
