@@ -22,19 +22,6 @@ export const getTemplateFile = ({
   return path.join(__dirname, template, mode, file);
 };
 
-export const SRC_DIR_NAMES = [
-  "app",
-  "pages",
-  "styles",
-  "components",
-  "lib",
-  "features",
-  "test",
-  "types",
-  "providers",
-  "public",
-];
-
 /**
  * Install a Next.js internal template to a given `root` directory.
  */
@@ -98,7 +85,12 @@ export const installTemplate = async ({
       stats: false,
       // We don't want to modify compiler options in [ts/js]config.json
       // and none of the files in the .git folder
-      ignore: ["tsconfig.json", "jsconfig.json", ".git/**/*"],
+      ignore: [
+        "tsconfig.json",
+        "jsconfig.json",
+        ".git/**/*",
+        "node_modules/**/*",
+      ],
     });
     const writeSema = new Sema(8, { capacity: files.length });
     await Promise.all(
@@ -119,31 +111,31 @@ export const installTemplate = async ({
     );
   }
 
-  if (srcDir) {
-    await fs.mkdir(path.join(root, "src"), { recursive: true });
-    await Promise.all(
-      SRC_DIR_NAMES.map(async (file) => {
-        await fs
-          .rename(path.join(root, file), path.join(root, "src", file))
-          .catch((err) => {
-            if (err.code !== "ENOENT") {
-              throw err;
-            }
-          });
-      })
-    );
+  // if (srcDir) {
+  //   await fs.mkdir(path.join(root, "src"), { recursive: true });
+  //   await Promise.all(
+  //     SRC_DIR_NAMES.map(async (file) => {
+  //       await fs
+  //         .rename(path.join(root, file), path.join(root, "src", file))
+  //         .catch((err) => {
+  //           if (err.code !== "ENOENT") {
+  //             throw err;
+  //           }
+  //         });
+  //     })
+  //   );
 
-    // Change the `Get started by editing pages/index` / `app/page` to include `src`
-    const indexPageFile = path.join("src", "app", `page.tsx`);
+  //   // Change the `Get started by editing pages/index` / `app/page` to include `src`
+  //   const indexPageFile = path.join("src", "app", `page.tsx`);
 
-    await fs.writeFile(
-      indexPageFile,
-      (await fs.readFile(indexPageFile, "utf8")).replace(
-        "app/page",
-        "src/app/page"
-      )
-    );
-  }
+  //   await fs.writeFile(
+  //     indexPageFile,
+  //     (await fs.readFile(indexPageFile, "utf8")).replace(
+  //       "app/page",
+  //       "src/app/page"
+  //     )
+  //   );
+  // }
 
   /** Copy the version from package.json or override for tests. */
   const version = process.env.NEXT_PRIVATE_TEST_VERSION ?? pkg.version;
