@@ -6,7 +6,6 @@ import fs from "fs";
 interface CopyOption {
   cwd?: string;
   rename?: (basename: string) => string;
-  parents?: boolean;
 }
 
 const identity = (x: string) => x;
@@ -14,7 +13,7 @@ const identity = (x: string) => x;
 export const copy = async (
   src: string | string[],
   dest: string,
-  { cwd, rename = identity, parents = true }: CopyOption = {}
+  { cwd, rename = identity }: CopyOption = {}
 ) => {
   const source = typeof src === "string" ? [src] : src;
 
@@ -27,20 +26,49 @@ export const copy = async (
     dot: true,
     absolute: false,
     stats: false,
-    ignore: ["**/node_modules/**"],
   });
 
+  console.log("Source files", sourceFiles);
+
   const destRelativeToCwd = cwd ? path.resolve(cwd, dest) : dest;
+
+  console.log("Source files", sourceFiles);
+
+  const prefixDotWhitelist = ["vscode"];
+
+  const prefixFolderWithDot = (
+    dirname: string,
+    basename: string,
+    destRelativeToCwd: string
+  ) => {
+    return path.join(destRelativeToCwd, "." + dirname, basename);
+  };
 
   return Promise.all(
     sourceFiles.map(async (p) => {
       const dirname = path.dirname(p);
+
+      console.log("Dirname", dirname);
+
       const basename = rename(path.basename(p));
 
+      console.log("Basename", basename);
+
       const from = cwd ? path.resolve(cwd, p) : p;
-      const to = parents
-        ? path.join(destRelativeToCwd, dirname, basename)
-        : path.join(destRelativeToCwd, basename);
+
+      console.log("From", from);
+      let to = path.join(destRelativeToCwd, dirname, basename);
+
+      console.log("To", to);
+
+      if (prefixDotWhitelist.includes(dirname)) {
+        console.log(
+          "prefixFolderWithDot",
+          prefixFolderWithDot(dirname, basename, destRelativeToCwd)
+        );
+
+        to = prefixFolderWithDot(dirname, basename, destRelativeToCwd);
+      }
 
       // Ensure the destination directory exists
       await fs.promises.mkdir(path.dirname(to), { recursive: true });

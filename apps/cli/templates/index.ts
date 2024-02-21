@@ -22,17 +22,32 @@ export const getTemplateFile = ({
   return path.join(__dirname, template, mode, file);
 };
 
+export const SRC_DIR_NAMES = [
+  "app",
+  "pages",
+  "styles",
+  "components",
+  "lib",
+  "features",
+  "playwright",
+  "providers",
+  "public",
+  "test",
+  "types",
+];
+
 /**
  * Install a Next.js internal template to a given `root` directory.
  */
 export const installTemplate = async ({
   appName,
   root,
+  packageManager,
   isOnline,
   srcDir,
   importAlias,
 }: InstallTemplateArgs) => {
-  console.log(bold(`Using npm.`));
+  console.log(bold(`Using ${packageManager}.`));
 
   const template = "default";
 
@@ -40,17 +55,25 @@ export const installTemplate = async ({
    * Copy the template files to the target directory.
    */
   console.log("\nInitializing project with template:", template, "\n");
+
+  // TODO: Could this be, original has mode a third argument?
   const templatePath = path.join(__dirname, template);
 
   console.log("Copying files from:", templatePath);
   const copySource = ["**"];
 
   await copy(copySource, root, {
-    parents: true,
     cwd: templatePath,
     rename(name) {
       switch (name) {
         case "gitignore":
+        case "gitattributes":
+        case "eslintignore":
+        case "eslintrc.js":
+        case "prettierrc":
+        case "prettierignore":
+        case "env.example":
+        case "vscode":
         case "eslintrc.json": {
           return `.${name}`;
         }
@@ -72,9 +95,9 @@ export const installTemplate = async ({
     (await fs.readFile(tsconfigFile, "utf8"))
       .replace(
         `"@/*": ["./*"]`,
-        srcDir ? `"@/*": ["./src/*"]` : `"@/*": ["./*"]`
+        srcDir ? `"@/*": ["./src/*"]` : `"@/*": ["./*"]`,
       )
-      .replace(`"@/*":`, `"${importAlias}":`)
+      .replace(`"@/*":`, `"${importAlias}":`),
   );
 
   // update import alias in any files if not using the default
@@ -85,13 +108,9 @@ export const installTemplate = async ({
       stats: false,
       // We don't want to modify compiler options in [ts/js]config.json
       // and none of the files in the .git folder
-      ignore: [
-        "tsconfig.json",
-        "jsconfig.json",
-        ".git/**/*",
-        "node_modules/**/*",
-      ],
+      ignore: ["tsconfig.json", "jsconfig.json", ".git/**/*"],
     });
+
     const writeSema = new Sema(8, { capacity: files.length });
     await Promise.all(
       files.map(async (file) => {
@@ -101,44 +120,99 @@ export const installTemplate = async ({
           await fs.writeFile(
             filePath,
             (await fs.readFile(filePath, "utf8")).replace(
-              `@/`,
-              `${importAlias.replace(/\*/g, "")}`
-            )
+              new RegExp(`@/`, "g"),
+              `${importAlias.replace(/\*/g, "")}`,
+            ),
           );
         }
         await writeSema.release();
-      })
+      }),
     );
   }
 
-  // if (srcDir) {
-  //   await fs.mkdir(path.join(root, "src"), { recursive: true });
-  //   await Promise.all(
-  //     SRC_DIR_NAMES.map(async (file) => {
-  //       await fs
-  //         .rename(path.join(root, file), path.join(root, "src", file))
-  //         .catch((err) => {
-  //           if (err.code !== "ENOENT") {
-  //             throw err;
-  //           }
-  //         });
-  //     })
-  //   );
+  if (srcDir) {
+    await fs.mkdir(path.join(root, "src"), { recursive: true });
+    await Promise.all(
+      SRC_DIR_NAMES.map(async (file) => {
+        await fs
+          .rename(path.join(root, file), path.join(root, "src", file))
+          .catch((err) => {
+            if (err.code !== "ENOENT") {
+              throw err;
+            }
+          });
+      }),
+    );
 
-  //   // Change the `Get started by editing pages/index` / `app/page` to include `src`
-  //   const indexPageFile = path.join("src", "app", `page.tsx`);
+    // Change the `Get started by editing pages/index` / `app/page` to include `src`
+    const indexPageFile = path.join("src", "app", `page.tsx`);
 
-  //   await fs.writeFile(
-  //     indexPageFile,
-  //     (await fs.readFile(indexPageFile, "utf8")).replace(
-  //       "app/page",
-  //       "src/app/page"
-  //     )
-  //   );
-  // }
+    await fs.writeFile(
+      indexPageFile,
+      (await fs.readFile(indexPageFile, "utf8")).replace(
+        "app/page",
+        "src/app/page",
+      ),
+    );
 
-  /** Copy the version from package.json or override for tests. */
-  const version = process.env.NEXT_PRIVATE_TEST_VERSION ?? pkg.version;
+    const tailwindConfigFile = path.join(root, "tailwind.config.ts");
+    await fs.writeFile(
+      tailwindConfigFile,
+      (await fs.readFile(tailwindConfigFile, "utf8")).replace(
+        /\.\/(\w+)\/\*\*\/\*\.\{js,ts,jsx,tsx,mdx\}/g,
+        "./src/$1/**/*.{js,ts,jsx,tsx,mdx}",
+      ),
+    );
+
+    const jestConfigPath = path.join(root, "jest.config.mjs");
+    let jestConfigContent = await fs.readFile(jestConfigPath, "utf-8");
+
+    // Replace the moduleNameMapper property
+    jestConfigContent = jestConfigContent.replace(
+      `"^@/(.*)$": "<rootDir>/$1"`,
+      `"^@/(.*)$": "<rootDir>/src/$1"`,
+    );
+
+    jestConfigContent = jestConfigContent.replace(
+      /"<rootDir>\/\*\*\/\*\.(test|spec)\.(ts|tsx)"/g,
+      `"<rootDir>/src/**/*.$1.$2"`,
+    );
+
+    // Write the updated content back to the jest.config.mjs file
+    await fs.writeFile(jestConfigPath, jestConfigContent);
+
+    const playwrightConfigPath = path.join(root, "playwright.config.ts");
+    let playwrightConfigContent = await fs.readFile(
+      playwrightConfigPath,
+      "utf-8",
+    );
+
+    // Replace the testDir property
+    playwrightConfigContent = playwrightConfigContent.replace(
+      `testDir: "./playwright"`,
+      `testDir: "./src/playwright"`,
+    );
+
+    // Write the updated content back to the playwright config file
+    await fs.writeFile(playwrightConfigPath, playwrightConfigContent);
+
+    // Read the .eslintignore file
+    const eslintignorePath = path.join(root, ".eslintignore");
+    let eslintignoreContent = await fs.readFile(eslintignorePath, "utf-8");
+
+    // Add the src/ prefix to the 'components/ui' line
+    eslintignoreContent = eslintignoreContent.replace(
+      /^components\/ui/gm,
+      "src/components/ui",
+    );
+
+    // Write the updated content back to the .eslintignore file
+    await fs.writeFile(eslintignorePath, eslintignoreContent);
+  }
+
+  const elint = srcDir
+    ? "eslint --fix --ext .js,.ts,.tsx ./src --ignore-path .eslintignore"
+    : "eslint --fix --ext .js,.ts,.tsx ./ --ignore-path .eslintignore";
 
   /** Create a package.json for the new project and write it to disk. */
   const packageJson: any = {
@@ -156,8 +230,7 @@ export const installTemplate = async ({
       prettier:
         'prettier --ignore-path .gitignore --write "**/*.+(js|json|ts|tsx)"',
       format: "npm run prettier -- --write",
-      "check:lint":
-        "eslint --fix --ext .js,.ts,.tsx ./src --ignore-path .eslintignore",
+      "check:lint": elint,
       "check:types": "tsc --project tsconfig.json --pretty --noEmit",
       "check:format": "npm run prettier -- --list-different",
       validate: "run-s check:lint check:types check:format test:jest test:e2e",
@@ -166,9 +239,6 @@ export const installTemplate = async ({
      * Default dependencies.
      */
     dependencies: {
-      react: "^18",
-      "react-dom": "^18",
-      next: version,
       "@hookform/resolvers": "^3.3.2",
       "@radix-ui/react-accordion": "^1.1.2",
       "@radix-ui/react-alert-dialog": "^1.0.5",
@@ -205,8 +275,11 @@ export const installTemplate = async ({
       "launchdarkly-node-server-sdk": "^7.0.3",
       "launchdarkly-react-client-sdk": "^3.0.10",
       "lucide-react": "^0.294.0",
+      next: "^14.0.5-canary.24",
       "playwright-msw": "^3.0.1",
+      react: "^18",
       "react-day-picker": "^8.9.1",
+      "react-dom": "^18",
       "react-hook-form": "^7.48.2",
       "server-only": "^0.0.1",
       "tailwind-merge": "^2.0.0",
@@ -248,6 +321,7 @@ export const installTemplate = async ({
       postcss: "^8",
       prettier: "^3.1.0",
       "prettier-plugin-tailwindcss": "^0.5.7",
+      specmatic: "^0.81.0",
       tailwindcss: "^3.4.0",
       "ts-jest": "^29.1.1",
       typescript: "^5",
@@ -255,16 +329,12 @@ export const installTemplate = async ({
     },
   };
 
-  /* Add Tailwind CSS dependencies. */
-
-  /* Default ESLint dependencies. */
-
   const devDeps = Object.keys(packageJson.devDependencies).length;
   if (!devDeps) delete packageJson.devDependencies;
 
   await fs.writeFile(
     path.join(root, "package.json"),
-    JSON.stringify(packageJson, null, 2) + os.EOL
+    JSON.stringify(packageJson, null, 2) + os.EOL,
   );
 
   console.log("\nInstalling dependencies:");
@@ -279,7 +349,7 @@ export const installTemplate = async ({
 
   console.log();
 
-  await install("npm", isOnline);
+  await install(packageManager, isOnline);
 };
 
 export * from "./types";
