@@ -1,6 +1,6 @@
 import { faker } from "@faker-js/faker"
 
-import { Example } from "../types"
+import { Example } from "@/types"
 
 export const exampleGenerator = (overrides?: Partial<Example>): Example => {
   return {

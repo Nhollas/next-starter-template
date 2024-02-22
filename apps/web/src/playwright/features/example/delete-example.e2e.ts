@@ -1,7 +1,7 @@
 import { expect } from "@playwright/test"
 
-import { exampleGenerator } from "../../../test/data-generators"
-import test from "../../fixtures/next-fixture"
+import test from "@/playwright/fixtures/next-fixture"
+import { exampleGenerator } from "@/test/data-generators"
 
 test("We can delete our examples", async ({ page, port }) => {
   const mockedExamples = Array.from({ length: 1 }, exampleGenerator)
@@ -19,8 +19,6 @@ test("We can delete our examples", async ({ page, port }) => {
     const form = page.getByTestId(`example-card-${example.id}`)
 
     await form.getByRole("button", { name: "Delete Example" }).click()
-
-    await page.waitForSelector("form")
 
     await page.getByRole("button", { name: "Confirm" }).click()
 

@@ -8,9 +8,7 @@ import { useDuplicateExampleMutation } from "../../api"
 import { AnimatedActionButton } from "./AnimatedActionButton"
 
 export const DuplicateExampleButton = ({ example }: { example: Example }) => {
-  const { mutate, isPending } = useDuplicateExampleMutation(() =>
-    console.log("duped"),
-  )
+  const { mutate, isPending } = useDuplicateExampleMutation()
 
   return (
     <AnimatedActionButton

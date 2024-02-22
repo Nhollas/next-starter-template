@@ -1,4 +1,4 @@
-export const createMockRequest = (overrides?: Partial<Request>): Request => {
+function createMockRequest(overrides?: Partial<Request>): Request {
   const mockedRequest: Request = {
     cache: "default",
     credentials: "include",
@@ -38,3 +38,9 @@ export const createMockRequest = (overrides?: Partial<Request>): Request => {
 
   return mockedRequest
 }
+
+const modelFactory = {
+  request: createMockRequest,
+}
+
+export default modelFactory

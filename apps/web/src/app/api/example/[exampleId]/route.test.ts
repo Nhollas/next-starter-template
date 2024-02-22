@@ -2,14 +2,14 @@
  * @jest-environment node
  */
 
-import { createMockRequest } from "@/test/route-handlers"
+import modelFactory from "@/test/model-factory"
 import { Example } from "@/types"
 
 import { DELETE, GET } from "./route"
 
 describe("/example/:id API route", () => {
   it("should return an example", async () => {
-    const mockedRequest = createMockRequest()
+    const mockedRequest = modelFactory.request()
 
     const res = await GET(mockedRequest, { params: { exampleId: "123" } })
 
@@ -26,8 +26,6 @@ describe("/example/:id API route", () => {
     expect(res.status).toBe(200)
 
     const responseBody = await res.json()
-
-    console.log("responseBody", responseBody)
 
     expect(responseBody).toEqual({})
   })

@@ -1,11 +1,8 @@
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
-import { Button } from "@/components/ui/button"
-// eslint-disable-next-line
-import { ExamplesContainer } from "@/features/example/components/ExamplesContainer"
-// eslint-disable-next-line
-import { ExamplesGrid } from "@/features/example/components/ExamplesGrid"
+import { Button } from "@/components/ui"
+import { ExamplesContainer, ExamplesGrid } from "@/features/example"
 
 export default function Example() {
   return (

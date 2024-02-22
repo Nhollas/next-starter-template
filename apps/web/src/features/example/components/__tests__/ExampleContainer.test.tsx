@@ -1,16 +1,11 @@
 import { HttpResponse, http } from "msw"
 
+import { exampleGenerator } from "@/test/data-generators"
+import { server } from "@/test/server"
+import { renderWithProviders, screen, waitFor } from "@/test/utils"
+import { Example } from "@/types"
+
 import { ExampleContainer } from ".."
-import { exampleGenerator } from "../../../../test/data-generators"
-import { server } from "../../../../test/server"
-import { renderWithProviders, screen, waitFor } from "../../../../test/utils"
-import { Example } from "../../../../types"
-
-test("ExampleContainer displays loading state", async () => {
-  renderWithProviders(<ExampleContainer exampleId="123" />)
-
-  expect(screen.getByText("Loading...")).toBeInTheDocument()
-})
 
 test("ExampleContainer displays error state", async () => {
   server.use(

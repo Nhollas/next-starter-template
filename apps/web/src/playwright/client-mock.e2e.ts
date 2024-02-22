@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test"
 
-import { exampleGenerator } from "../test/data-generators"
+import { exampleGenerator } from "@/test/data-generators"
 
 import test from "./fixtures/next-fixture"
 

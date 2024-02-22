@@ -8,7 +8,7 @@ import type { SetupServer } from "msw/node"
 import { setupServer } from "msw/node"
 import next from "next"
 
-import { serverEnv } from "../../lib/env"
+import { serverEnv } from "@/lib/env"
 
 export const test = base.extend<
   { http: typeof http },

@@ -1,16 +1,17 @@
 import { faker } from "@faker-js/faker"
 import { HttpResponse, http } from "msw"
 
-import { ExamplesContainer } from ".."
-import { exampleGenerator } from "../../../../test/data-generators"
-import { server } from "../../../../test/server"
+import { exampleGenerator } from "@/test/data-generators"
+import { server } from "@/test/server"
 import {
   fireEvent,
   renderWithProviders,
   screen,
   waitFor,
   within,
-} from "../../../../test/utils"
+} from "@/test/utils"
+
+import { ExamplesContainer } from ".."
 
 /* 
     Requirement for feature:

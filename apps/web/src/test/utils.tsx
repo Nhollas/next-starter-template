@@ -2,7 +2,7 @@ import { QueryClientProvider } from "@tanstack/react-query"
 import "@testing-library/jest-dom"
 import { render } from "@testing-library/react"
 
-import { queryClient } from "../lib/react-query"
+import { queryClient } from "@/lib/react-query"
 
 export * from "@testing-library/react"
 

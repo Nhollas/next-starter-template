@@ -1,7 +1,7 @@
 import { Locator, expect } from "@playwright/test"
 
-import { exampleGenerator } from "../../../test/data-generators"
-import test from "../../fixtures/next-fixture"
+import test from "@/playwright/fixtures/next-fixture"
+import { exampleGenerator } from "@/test/data-generators"
 
 test("We can duplicate our examples", async ({ page, port }) => {
   const mockedExamples = Array.from({ length: 3 }, exampleGenerator)
@@ -17,6 +17,7 @@ test("We can duplicate our examples", async ({ page, port }) => {
 
   const exampleToDuplicate = mockedExamples[0]
 
+  // eslint-disable-next-line playwright/no-conditional-in-test
   if (!exampleToDuplicate) {
     throw new Error("No example to duplicate")
   }

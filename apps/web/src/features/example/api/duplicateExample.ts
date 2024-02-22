@@ -15,14 +15,16 @@ const duplicateExample = async (example: Example): Promise<Example> => {
   }
 }
 
-export const useDuplicateExampleMutation = (successCallback: () => void) => {
+export const useDuplicateExampleMutation = (
+  successCallback?: (duplicatedExample: Example) => void,
+) => {
   return useMutation({
     onSuccess: (duplicatedExample) => {
       queryClient.setQueryData(["examples"], (oldData: Example[]) =>
         oldData ? [...oldData, duplicatedExample] : [duplicatedExample],
       )
 
-      successCallback()
+      successCallback && successCallback(duplicatedExample)
     },
     onError: (_, __, context: any) => {
       if (context?.previousExamples) {

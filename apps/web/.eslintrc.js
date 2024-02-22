@@ -6,17 +6,17 @@ module.exports = {
     browser: true,
   },
   parserOptions: { ecmaVersion: 8, sourceType: "module" },
-  extends: ["eslint:recommended"],
+  extends: ["eslint:recommended", "next"],
+  settings: {
+    react: { version: "detect" },
+    "import/resolver": {
+      typescript: {},
+    },
+  },
   overrides: [
     {
       files: ["**/*.ts", "**/*.tsx"],
       parser: "@typescript-eslint/parser",
-      settings: {
-        react: { version: "detect" },
-        "import/resolver": {
-          typescript: {},
-        },
-      },
       env: {
         browser: true,
         node: true,
@@ -32,10 +32,6 @@ module.exports = {
         "plugin:react-hooks/recommended",
         "plugin:jsx-a11y/recommended",
         "plugin:prettier/recommended",
-        "plugin:testing-library/react",
-        "plugin:jest-dom/recommended",
-        "plugin:playwright/recommended",
-        "next",
       ],
       rules: {
         "no-restricted-imports": [
@@ -45,8 +41,6 @@ module.exports = {
           },
         ],
         "linebreak-style": ["error", "unix"],
-        "react/prop-types": "off",
-
         "import/order": [
           "error",
           {
@@ -63,36 +57,21 @@ module.exports = {
             alphabetize: { order: "asc", caseInsensitive: true },
           },
         ],
-        "import/default": "off",
-        "import/no-named-as-default-member": "off",
-        "import/no-named-as-default": "off",
-
-        "react/react-in-jsx-scope": "off",
-
-        "jsx-a11y/anchor-is-valid": "off",
-
         "@typescript-eslint/no-unused-vars": ["error"],
-
-        "@typescript-eslint/explicit-function-return-type": ["off"],
-        "@typescript-eslint/explicit-module-boundary-types": ["off"],
-        "@typescript-eslint/no-empty-function": ["off"],
-        "@typescript-eslint/no-explicit-any": ["off"],
-
+        "no-empty-pattern": "off",
+        "react/react-in-jsx-scope": "off",
+        "import/no-named-as-default": "off",
+        "@typescript-eslint/no-explicit-any": "off",
         "prettier/prettier": ["error", {}, { usePrettierrc: true }],
       },
     },
     {
-      files: ["*.e2e.ts"],
-      rules: {
-        "testing-library/prefer-screen-queries": "off",
-        "jest-dom/prefer-in-document": "off",
-      },
+      files: ["*.test.ts", "*.test.tsx"],
+      extends: ["plugin:testing-library/react", "plugin:jest-dom/recommended"],
     },
     {
-      files: ["*.test.tsx"],
-      rules: {
-        "playwright/missing-playwright-await": "off",
-      },
+      files: ["*.e2e.ts"],
+      extends: ["plugin:playwright/recommended"],
     },
   ],
 }

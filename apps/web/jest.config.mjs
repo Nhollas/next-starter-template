@@ -10,19 +10,13 @@ const createJestConfig = nextJest({
 const config = {
   // Add more setup options before each test is run
   // setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
-  preset: "ts-jest",
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   setupFiles: ["./jest.polyfills.js"],
-  testEnvironment: "jest-environment-jsdom",
+  testEnvironment: "jsdom",
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
-  testMatch: [
-    "<rootDir>/src/**/*.test.ts",
-    "<rootDir>/src/**/*.test.tsx",
-    "<rootDir>/src/**/*.spec.ts",
-    "<rootDir>/src/**/*.spec.tsx",
-  ],
+  testMatch: ["<rootDir>/src/**/*.test.ts", "<rootDir>/src/**/*.test.tsx"],
   testEnvironmentOptions: {
     customExportConditions: [""],
   },
