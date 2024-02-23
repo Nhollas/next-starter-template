@@ -1,10 +1,7 @@
-# .eslintignore
-
 playwright.config.ts
 jest.setup.js
 next.config.js
 jest.config.js
-src/components/ui
+**/components/ui
 jest.polyfills.js
-src/docs
 
