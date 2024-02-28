@@ -1,9 +1,9 @@
 import { Locator, expect } from "@playwright/test"
 
-import test, { buildLocalUrl } from "@/playwright/fixtures/next-fixture"
+import test from "@/playwright/fixtures/next-fixture"
 import { exampleGenerator } from "@/test/data-generators"
 
-test("We can duplicate our examples", async ({ page, port }) => {
+test("We can duplicate our examples", async ({ page }) => {
   const mockedExamples = Array.from({ length: 3 }, exampleGenerator)
 
   await page.route("*/**/api/examples", async (route) => {
