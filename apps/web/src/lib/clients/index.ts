@@ -1,7 +1,7 @@
 import axios, { AxiosInstance, AxiosRequestConfig } from "axios"
 
 export interface Client {
-  buildClient: () => AxiosInstance
+  build: () => AxiosInstance
   createUrl: (path: string) => string
 }
 

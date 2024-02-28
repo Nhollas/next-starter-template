@@ -6,7 +6,7 @@ import { Example } from "@/types"
 
 const duplicateExample = async (example: Example): Promise<Example> => {
   try {
-    const response = await NextApiClient.buildClient().post(
+    const response = await NextApiClient.build().post(
       `/example/duplicate`,
       example,
     )

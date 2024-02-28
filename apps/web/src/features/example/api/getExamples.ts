@@ -5,7 +5,7 @@ import { Example } from "@/types"
 
 export const getExamples = async (axiosClient = NextApiClient) => {
   try {
-    const client = axiosClient.buildClient()
+    const client = axiosClient.build()
 
     const response = await client.get<Example[]>(`/examples`)
 

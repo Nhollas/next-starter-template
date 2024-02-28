@@ -5,7 +5,7 @@ import { Example } from "@/types"
 
 export const getExample = async (exampleId: string) => {
   try {
-    const response = await NextApiClient.buildClient().get<Example>(
+    const response = await NextApiClient.build().get<Example>(
       `/example/${exampleId}`,
     )
 

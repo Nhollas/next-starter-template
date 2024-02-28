@@ -6,7 +6,7 @@ import { Example } from "@/types"
 
 const updateExample = async (example: Example) => {
   try {
-    const response = await NextApiClient.buildClient().put(`/example`, example)
+    const response = await NextApiClient.build().put(`/example`, example)
     return response.data
   } catch (error) {
     return Promise.reject(error)

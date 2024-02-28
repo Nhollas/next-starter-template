@@ -1,6 +1,6 @@
 import { Client, buildClient, baseUrl } from "."
 
 export const NextApiClient: Client = {
-  buildClient: buildClient("/api"),
+  build: buildClient("/api"),
   createUrl: baseUrl("/api"),
 }
