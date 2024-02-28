@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui"
 import { ExamplesContainer, ExamplesGrid } from "@/features/example"
 
-export default function Example() {
+export default function ExamplePage() {
   return (
     <section className="w-full space-y-8">
       <div className="flex justify-between">

@@ -12,7 +12,7 @@ import {
   within,
 } from "@/test/utils"
 
-import { ExamplesContainer } from ".."
+import Page from "./page"
 
 /* 
     Requirement for feature:
@@ -31,7 +31,7 @@ it("Successfully duplicating an example:", async () => {
     ),
   )
 
-  renderWithProviders(<ExamplesContainer />)
+  renderWithProviders(<Page />)
   // [1]
   await waitFor(() => {
     const parentElement = screen.getByTestId(
