@@ -1,13 +1,14 @@
-"use client"
 import { useMutation } from "@tanstack/react-query"
 
-import { client } from "@/lib/clients"
+import { NextApiClient } from "@/lib/clients/next-api-client"
 import { queryClient } from "@/lib/react-query"
 import { Example } from "@/types"
 
 const deleteExample = async (exampleId: string) => {
   try {
-    const response = await client().delete(`/example/${exampleId}`)
+    const response = await NextApiClient.buildClient().delete(
+      `/example/${exampleId}`,
+    )
 
     return response.data
   } catch (error) {

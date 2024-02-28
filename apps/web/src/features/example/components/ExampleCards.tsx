@@ -3,7 +3,7 @@ import { Example } from "@/types"
 import { AnimatedExampleCard } from "./AnimatedExampleCard"
 import AnimatePresenceWrapper from "./AnimatePresenceWrapper"
 
-export const Examples = ({ examples }: { examples: Example[] }) => (
+export const ExampleCards = ({ examples }: { examples: Example[] }) => (
   <AnimatePresenceWrapper mode="popLayout">
     {examples.map((example) => (
       <AnimatedExampleCard

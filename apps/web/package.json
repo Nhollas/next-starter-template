@@ -16,7 +16,8 @@
     "check:types": "tsc --project tsconfig.json --pretty --noEmit",
     "check:format": "npm run prettier -- --list-different",
     "validate-and-test": "npm-run-all check:types check:format check:lint test:jest test:e2e",
-    "validate": "npm-run-all --parallel check:types check:lint check:format"
+    "validate": "npm-run-all --parallel check:types check:lint check:format",
+    "prepare": "husky"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -64,6 +65,7 @@
     "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-testing-library": "^6.2.0",
+    "husky": "^9.0.11",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "msw": "^2.0.9",

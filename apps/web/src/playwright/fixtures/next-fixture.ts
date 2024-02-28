@@ -10,6 +10,10 @@ import next from "next"
 
 import { serverEnv } from "@/lib/env"
 
+export const buildLocalUrl = (path: string, port: string) => {
+  return `http://localhost:${port}${path}`
+}
+
 export const test = base.extend<
   { http: typeof http },
   {
@@ -18,6 +22,9 @@ export const test = base.extend<
     enablePreviewMode: (page: Page) => Promise<() => Promise<void>>
   }
 >({
+  baseURL: async ({ port }, use) => {
+    await use(buildLocalUrl("", port))
+  },
   port: [
     async ({}, use) => {
       const app = next({ dev: false })
@@ -41,6 +48,7 @@ export const test = base.extend<
     },
     { scope: "worker", auto: true },
   ],
+
   requestInterceptor: [
     async ({}, use) => {
       const requestInterceptor = setupServer()

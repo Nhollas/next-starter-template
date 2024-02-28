@@ -1,6 +1,6 @@
 import { expect } from "@playwright/test"
 
-import test from "@/playwright/fixtures/next-fixture"
+import test, { buildLocalUrl } from "@/playwright/fixtures/next-fixture"
 import { exampleGenerator } from "@/test/data-generators"
 
 test("We can delete our examples", async ({ page, port }) => {
@@ -12,7 +12,7 @@ test("We can delete our examples", async ({ page, port }) => {
     await route.fulfill({ response, json: mockedExamples })
   })
 
-  await page.goto(`http://localhost:${port}/csr-examples`)
+  await page.goto(`/csr-examples`)
   await page.waitForResponse("**/api/examples")
 
   for (const example of mockedExamples) {

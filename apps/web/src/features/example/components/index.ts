@@ -1,5 +1,5 @@
 export * from "./ExampleCard"
-export * from "./ExampleContainer"
-export * from "./Examples"
+export * from "./ExampleCardContainer"
+export * from "./ExampleCards"
 export * from "./ExamplesContainer"
 export * from "./ExamplesGrid"

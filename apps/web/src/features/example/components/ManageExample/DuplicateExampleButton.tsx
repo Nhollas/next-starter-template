@@ -16,10 +16,10 @@ export const DuplicateExampleButton = ({ example }: { example: Example }) => {
       variant="outline"
       type="button"
       disabled={isPending}
-      className="aspect-square h-11"
+      className="aspect-square h-10"
       onClick={() => mutate(example)}
     >
-      <CopyPlus className="h-6 w-6 flex-shrink-0" />
+      <CopyPlus className="h-5 w-5 flex-shrink-0" />
       <span className="sr-only">Duplicate</span>
     </AnimatedActionButton>
   )

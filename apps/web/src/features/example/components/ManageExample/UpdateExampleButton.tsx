@@ -20,10 +20,10 @@ export const UpdateExampleButton = () => {
         layout
         variant="outline"
         type="button"
-        className="z-20 aspect-square h-11"
+        className="z-20 aspect-square h-10"
         onClick={() => setValue("isOpen", !isOpen)}
       >
-        <Pencil className="h-6 w-6 flex-shrink-0" />
+        <Pencil className="h-5 w-5 flex-shrink-0" />
         <span className="sr-only">Update Example</span>
       </AnimatedActionButton>
       <AnimatePresenceWrapper mode="popLayout">
@@ -39,13 +39,13 @@ export const UpdateExampleButton = () => {
             }}
             variant="outline"
             type="submit"
-            className="z-10 aspect-square h-11"
+            className="z-10 aspect-square h-10"
             disabled={showDisabled}
           >
             {formState.isSubmitting ? (
-              <RotateCw className="h-6 w-6 flex-shrink-0 animate-spin" />
+              <RotateCw className="h-5 w-5 flex-shrink-0 animate-spin" />
             ) : (
-              <Save className="h-6 w-6 flex-shrink-0" />
+              <Save className="h-5 w-5 flex-shrink-0" />
             )}
             <span className="sr-only">Save</span>
           </AnimatedActionButton>

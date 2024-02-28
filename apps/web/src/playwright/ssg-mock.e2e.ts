@@ -1,13 +1,13 @@
 import { expect } from "@playwright/test"
 import { HttpResponse } from "msw"
 
+import { ExampleClient } from "@/lib/clients/example-client"
 import { exampleGenerator } from "@/test/data-generators"
 
 import test from "./fixtures/next-fixture"
 
 test("Our examples from SSG are rendered.", async ({
   page,
-  port,
   http,
   requestInterceptor,
   enablePreviewMode,
@@ -15,12 +15,13 @@ test("Our examples from SSG are rendered.", async ({
   const mockedExamples = Array.from({ length: 1 }, exampleGenerator)
 
   requestInterceptor.use(
-    http.get("https://basecamp.proxy.beeceptor.com/api/examples", () =>
+    http.get(ExampleClient.createUrl("/examples"), () =>
       HttpResponse.json(mockedExamples),
     ),
   )
   const disablePreview = await enablePreviewMode(page)
-  await page.goto(`http://localhost:${port}/ssg-examples`)
+
+  await page.goto("/ssg-examples")
 
   await expect(
     page.getByRole("heading", { name: "SSG Examples Page" }),

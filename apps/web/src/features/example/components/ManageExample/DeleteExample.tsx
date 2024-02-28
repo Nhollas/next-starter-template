@@ -29,10 +29,10 @@ export const DeleteExample = ({ exampleId }: { exampleId: string }) => {
         <AnimatedActionButton
           layout
           variant="outline"
-          className="aspect-square h-11"
+          className="aspect-square h-10"
           onClick={() => setIsOpen(true)}
         >
-          <Trash className="h-6 w-6 flex-shrink-0" />
+          <Trash className="h-5 w-5 flex-shrink-0" />
           <span className="sr-only">Delete Example</span>
         </AnimatedActionButton>
       </AlertDialogTrigger>

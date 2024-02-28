@@ -3,10 +3,10 @@ import Link from "next/link"
 
 import { Button } from "@/components/ui"
 import { ExampleCard, ExamplesGrid, getExamples } from "@/features/example"
-import { exampleClient } from "@/lib/clients"
+import { ExampleClient } from "@/lib/clients/example-client"
 
 export default async function SSRPAGE() {
-  const examples = await getExamples(exampleClient)
+  const examples = await getExamples(ExampleClient)
 
   return (
     <section className="w-full space-y-8">

@@ -9,7 +9,7 @@ import {
   ExampleCard,
 } from "./ExampleCard"
 
-export function ExampleContainer({ exampleId }: { exampleId: string }) {
+export function ExampleCardContainer({ exampleId }: { exampleId: string }) {
   const { isLoading, isError, data: example } = useExampleQuery(exampleId)
 
   if (isLoading) {

@@ -1,6 +1,7 @@
 import { faker } from "@faker-js/faker"
 import { HttpResponse, http } from "msw"
 
+import { NextApiClient } from "@/lib/clients/next-api-client"
 import { exampleGenerator } from "@/test/data-generators"
 import { server } from "@/test/server"
 import {
@@ -25,7 +26,7 @@ it("Successfully duplicating an example:", async () => {
   const exampleToDuplicate = exampleGenerator()
 
   server.use(
-    http.get("/api/examples", () =>
+    http.get(NextApiClient.createUrl("/examples"), () =>
       HttpResponse.json([exampleToDuplicate, exampleGenerator()]),
     ),
   )
@@ -44,7 +45,7 @@ it("Successfully duplicating an example:", async () => {
   })
 
   server.use(
-    http.post("/api/example/duplicate", () =>
+    http.post(NextApiClient.createUrl("/example/duplicate"), () =>
       HttpResponse.json(
         exampleGenerator({
           ...exampleToDuplicate,

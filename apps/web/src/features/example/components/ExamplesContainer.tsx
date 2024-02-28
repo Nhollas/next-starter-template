@@ -3,7 +3,7 @@
 import { useExamplesQuery } from "../api/getExamples"
 
 import { ExampleCardError, ExampleCardSkeleton } from "./ExampleCard"
-import { Examples } from "./Examples"
+import { ExampleCards } from "./ExampleCards"
 
 export function ExamplesContainer() {
   const { isError, isLoading, data: examples } = useExamplesQuery()
@@ -22,5 +22,5 @@ export function ExamplesContainer() {
     return <div>Not Found...</div>
   }
 
-  return <Examples examples={examples} />
+  return <ExampleCards examples={examples} />
 }
