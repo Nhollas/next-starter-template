@@ -10,4 +10,8 @@ test("Our page has the title of 'Nextjs Starter Template'", async () => {
   renderWithProviders(<HomePageResolved />)
 
   expect(screen.getByText("Nextjs Starter Template")).toBeInTheDocument()
+
+  expect(
+    screen.getByText("Start building your project without faff."),
+  ).toBeInTheDocument()
 })

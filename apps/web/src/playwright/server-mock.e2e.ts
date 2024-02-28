@@ -2,9 +2,8 @@ import { expect } from "@playwright/test"
 import { HttpResponse } from "msw"
 
 import { ExampleClient } from "@/lib/clients/example-client"
+import test from "@/playwright/fixtures/next-fixture"
 import { exampleGenerator } from "@/test/data-generators"
-
-import test from "./fixtures/next-fixture"
 
 test("Our examples from SSR are rendered.", async ({
   page,

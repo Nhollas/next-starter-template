@@ -7,5 +7,3 @@ export const serverEnv = () =>
       DRAFTMODE_SECRET: z.string(),
     })
     .parse(process.env)
-
-export const clientEnv = () => z.object({}).parse(process.env)
