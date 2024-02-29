@@ -32,6 +32,7 @@ it("Successfully duplicating an example:", async () => {
   )
 
   renderWithProviders(<Page />)
+
   // [1]
   await waitFor(() => {
     const parentElement = screen.getByTestId(
