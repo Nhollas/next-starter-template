@@ -48,7 +48,7 @@ export const EditExample = forwardRef<
               <FormControl>
                 <Textarea
                   placeholder="Description"
-                  className="border-none px-2 text-sm text-muted-foreground outline outline-input"
+                  className="border-none px-2 text-muted-foreground outline outline-input"
                   {...field}
                 />
               </FormControl>

@@ -28,7 +28,7 @@ export const ExampleCard = forwardRef<
   >
     <ManageExampleContainer example={example}>
       <CardHeader>
-        <CardTitle className="overflow-hidden text-ellipsis">
+        <CardTitle className="text-2xl font-semibold leading-none tracking-tight">
           {example.title}
         </CardTitle>
       </CardHeader>
