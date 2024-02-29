@@ -20,17 +20,20 @@ import { useDeleteExampleMutation } from "../../api"
 import { AnimatedActionButton } from "./AnimatedActionButton"
 
 export const DeleteExample = ({ exampleId }: { exampleId: string }) => {
-  const [isOpen, setIsOpen] = useState(false)
-  const { mutate, isPending } = useDeleteExampleMutation(() => setIsOpen(false))
+  const [dialogOpen, setDialogOpen] = useState(false)
+  const closeDialog = () => setDialogOpen(false)
+  const openDialog = () => setDialogOpen(true)
+
+  const { mutate, isPending } = useDeleteExampleMutation(() => closeDialog())
 
   return (
-    <AlertDialog open={isOpen}>
+    <AlertDialog open={dialogOpen}>
       <AlertDialogTrigger asChild>
         <AnimatedActionButton
           layout
           variant="outline"
           className="aspect-square h-10"
-          onClick={() => setIsOpen(true)}
+          onClick={() => openDialog()}
         >
           <Trash className="h-5 w-5 flex-shrink-0" />
           <span className="sr-only">Delete Example</span>
@@ -46,7 +49,7 @@ export const DeleteExample = ({ exampleId }: { exampleId: string }) => {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={() => setIsOpen(false)}>
+          <AlertDialogCancel onClick={() => closeDialog()}>
             Cancel
           </AlertDialogCancel>
           {isPending ? (

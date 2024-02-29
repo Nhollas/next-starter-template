@@ -1,18 +1,21 @@
 "use client"
 import { motion } from "framer-motion"
+import { useState } from "react"
 
-import { Form } from "@/components/ui"
-import { Example } from "@/types"
+import { CardFooter, Form } from "@/components/ui"
 
 import { useUpdateExampleMutation } from "../../api/updateExample"
 import {
-  UpdateExampleFormValues,
+  EditExampleForm,
   useEditExampleForm,
 } from "../../hooks/useEditExampleForm"
+import { Example } from "../../types"
 import AnimatePresenceWrapper from "../AnimatePresenceWrapper"
 
-import { ActionsFooter } from "./ActionsFooter"
 import { AnimatedEditExample } from "./AnimatedEditExample"
+import { DeleteExample } from "./DeleteExample"
+import { DuplicateExampleButton } from "./DuplicateExampleButton"
+import { UpdateExampleButton } from "./UpdateExampleButton"
 
 export const ManageExampleContainer = ({
   children,
@@ -22,16 +25,24 @@ export const ManageExampleContainer = ({
   example: Example
 }) => {
   const form = useEditExampleForm(example)
-  const { watch } = form
+  const {
+    watch,
+    formState: { isDirty, isSubmitting },
+  } = form
+
+  const [editOpen, setEditOpen] = useState(false)
+
+  const closeForm = () => setEditOpen(false)
+  const openForm = () => setEditOpen(true)
 
   const { mutateAsync } = useUpdateExampleMutation(() => {
-    form.setValue("isOpen", false)
+    closeForm()
     form.reset({ ...watch() })
   })
 
-  const isOpen = form.watch("isOpen")
+  const saveDisabled = !isDirty || isSubmitting
 
-  const handleSubmit = async (values: UpdateExampleFormValues) => {
+  const handleSubmit = async (values: EditExampleForm) => {
     await mutateAsync({ ...example, ...values })
   }
 
@@ -42,7 +53,7 @@ export const ManageExampleContainer = ({
         className="flex grow flex-col"
       >
         <AnimatePresenceWrapper mode="popLayout">
-          {isOpen ? (
+          {editOpen ? (
             <AnimatedEditExample
               form={form}
               layout
@@ -70,7 +81,17 @@ export const ManageExampleContainer = ({
             </motion.div>
           )}
         </AnimatePresenceWrapper>
-        <ActionsFooter example={example} />
+        <CardFooter className="flex flex-row gap-x-2">
+          <DeleteExample exampleId={example.id} />
+          <UpdateExampleButton
+            saveDisabled={saveDisabled}
+            editOpen={editOpen}
+            isSubmitting={isSubmitting}
+            openForm={openForm}
+            closeForm={closeForm}
+          />
+          <DuplicateExampleButton example={example} />
+        </CardFooter>
       </form>
     </Form>
   )

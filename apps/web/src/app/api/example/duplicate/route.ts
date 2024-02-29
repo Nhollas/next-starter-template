@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker"
 
+import { Example } from "@/features/example"
 import { exampleGenerator } from "@/test/data-generators"
-import { Example } from "@/types"
 
 export async function POST(request: Request) {
   const exampleToDuplicate = (await request.json()) as Example

@@ -2,7 +2,8 @@ import { useMutation } from "@tanstack/react-query"
 
 import { NextApiClient } from "@/lib/clients/next-api-client"
 import { queryClient } from "@/lib/react-query"
-import { Example } from "@/types"
+
+import { Example } from "../types"
 
 const updateExample = async (example: Example) => {
   try {

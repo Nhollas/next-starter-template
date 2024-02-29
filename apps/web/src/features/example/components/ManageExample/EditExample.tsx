@@ -11,12 +11,12 @@ import {
   Textarea,
 } from "@/components/ui"
 
-import { UpdateExampleFormValues } from "../../hooks/useEditExampleForm"
+import { EditExampleForm } from "../../hooks/useEditExampleForm"
 
 export const EditExample = forwardRef<
   HTMLDivElement,
   {
-    form: UseFormReturn<UpdateExampleFormValues>
+    form: UseFormReturn<EditExampleForm>
   }
 >(({ form }, ref) => {
   return (

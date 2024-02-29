@@ -1,7 +1,7 @@
 import { http, HttpResponse } from "msw"
 
+import { Example } from "@/features/example"
 import { exampleGenerator } from "@/test/data-generators"
-import { Example } from "@/types"
 
 export const exampleHandlers = [
   http.get("/api/example/*", ({ request }) => {

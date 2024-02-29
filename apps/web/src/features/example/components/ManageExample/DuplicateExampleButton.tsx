@@ -1,14 +1,23 @@
 "use client"
-import { CopyPlus } from "lucide-react"
-
-import { Example } from "@/types"
+import { CopyPlus, RotateCw } from "lucide-react"
+import { useEffect, useState } from "react"
 
 import { useDuplicateExampleMutation } from "../../api"
+import { Example } from "../../types"
 
 import { AnimatedActionButton } from "./AnimatedActionButton"
 
 export const DuplicateExampleButton = ({ example }: { example: Example }) => {
-  const { mutate, isPending } = useDuplicateExampleMutation()
+  const [newExampleId, setNewExampleId] = useState<string | undefined>()
+  const { mutate, isPending } = useDuplicateExampleMutation(
+    (duplicatedExample) => setNewExampleId(duplicatedExample.id),
+  )
+
+  useEffect(() => {
+    if (newExampleId) {
+      scrollToDuplicatedExample(newExampleId)
+    }
+  }, [newExampleId])
 
   return (
     <AnimatedActionButton
@@ -19,8 +28,21 @@ export const DuplicateExampleButton = ({ example }: { example: Example }) => {
       className="aspect-square h-10"
       onClick={() => mutate(example)}
     >
-      <CopyPlus className="h-5 w-5 flex-shrink-0" />
-      <span className="sr-only">Duplicate</span>
+      {isPending ? (
+        <RotateCw className="h-5 w-5 flex-shrink-0 animate-spin" />
+      ) : (
+        <>
+          <CopyPlus className="h-5 w-5 flex-shrink-0" />
+          <span className="sr-only">Duplicate</span>
+        </>
+      )}
     </AnimatedActionButton>
   )
+}
+
+function scrollToDuplicatedExample(newExampleId: string) {
+  const element = document.getElementById(newExampleId)
+  if (element) {
+    element.scrollIntoView({ behavior: "smooth", block: "center" })
+  }
 }

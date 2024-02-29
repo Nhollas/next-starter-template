@@ -1,4 +1,4 @@
-import { Example } from "@/types"
+import { Example } from "@/features/example"
 
 export async function PUT(request: Request) {
   const updatedExample = (await request.json()) as Example

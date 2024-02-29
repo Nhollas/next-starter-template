@@ -9,7 +9,8 @@ import {
   Skeleton,
 } from "@/components/ui"
 import { cn } from "@/lib/utils"
-import { Example } from "@/types"
+
+import { Example } from "../types"
 
 import { ManageExampleContainer } from "./ManageExample"
 
@@ -23,6 +24,7 @@ export const ExampleCard = forwardRef<
     ref={ref}
     className={cn("flex flex-col", className)}
     data-testid={`example-card-${example.id}`}
+    id={example.id}
   >
     <ManageExampleContainer example={example}>
       <CardHeader>

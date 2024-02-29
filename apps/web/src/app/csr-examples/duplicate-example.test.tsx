@@ -14,6 +14,8 @@ import {
 
 import Page from "./page"
 
+global.window.HTMLElement.prototype.scrollIntoView = function () {}
+
 /* 
     Requirement for feature:
 

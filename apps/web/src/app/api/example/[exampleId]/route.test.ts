@@ -2,8 +2,8 @@
  * @jest-environment node
  */
 
+import { Example } from "@/features/example"
 import modelFactory from "@/test/model-factory"
-import { Example } from "@/types"
 
 import { DELETE, GET } from "./route"
 
