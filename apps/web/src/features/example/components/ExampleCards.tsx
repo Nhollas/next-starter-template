@@ -1,12 +1,15 @@
 import { Example } from "../types"
 
-import { AnimatedExampleCard } from "./AnimatedExampleCard"
+import { AnimatedExampleCardContainer } from "./AnimatedExampleCardContainer"
 import AnimatePresenceWrapper from "./AnimatePresenceWrapper"
+import { ManageExampleContainer } from "./ManageExample"
+
+import { ExampleCardBody } from "."
 
 export const ExampleCards = ({ examples }: { examples: Example[] }) => (
   <AnimatePresenceWrapper mode="popLayout">
     {examples.map((example) => (
-      <AnimatedExampleCard
+      <AnimatedExampleCardContainer
         layout
         exit={{ scale: 0.8, opacity: 0 }}
         transition={{
@@ -17,7 +20,11 @@ export const ExampleCards = ({ examples }: { examples: Example[] }) => (
         key={example.id}
         example={example}
         className="bg-secondary"
-      />
+      >
+        <ManageExampleContainer example={example}>
+          <ExampleCardBody example={example} />
+        </ManageExampleContainer>
+      </AnimatedExampleCardContainer>
     ))}
   </AnimatePresenceWrapper>
 )

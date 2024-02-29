@@ -2,7 +2,12 @@ import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
 import { Button } from "@/components/ui"
-import { ExampleCard, ExamplesGrid, getExamples } from "@/features/example"
+import {
+  ExampleCardBody,
+  ExampleCardContainer,
+  ExamplesGrid,
+  getExamples,
+} from "@/features/example"
 import { ExampleClient } from "@/lib/clients/example-client"
 
 export default async function SSGPAGE() {
@@ -24,7 +29,9 @@ export default async function SSGPAGE() {
       <h1 className="text-2xl font-medium">SSG Examples Page</h1>
       <ExamplesGrid>
         {examples.map((example) => (
-          <ExampleCard key={example.id} example={example} />
+          <ExampleCardContainer key={example.id} example={example}>
+            <ExampleCardBody example={example} />
+          </ExampleCardContainer>
         ))}
       </ExamplesGrid>
     </section>

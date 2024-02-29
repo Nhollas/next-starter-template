@@ -2,7 +2,7 @@
 
 import { useExamplesQuery } from "../api/getExamples"
 
-import { ExampleCardError, ExampleCardSkeleton } from "./ExampleCard"
+import { ExampleCardError, ExampleCardSkeleton } from "./ExampleCardContainer"
 import { ExampleCards } from "./ExampleCards"
 
 export function ExamplesContainer() {

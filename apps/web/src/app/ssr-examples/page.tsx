@@ -2,7 +2,12 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
 import { Button } from "@/components/ui"
-import { ExampleCard, ExamplesGrid, getExamples } from "@/features/example"
+import {
+  ExampleCardBody,
+  ExampleCardContainer,
+  ExamplesGrid,
+  getExamples,
+} from "@/features/example"
 import { ExampleClient } from "@/lib/clients/example-client"
 
 export default async function SSRPAGE() {
@@ -33,7 +38,9 @@ export default async function SSRPAGE() {
       <h1 className="text-2xl font-medium">SSR Examples Page</h1>
       <ExamplesGrid>
         {examples.map((example) => (
-          <ExampleCard key={example.id} example={example} />
+          <ExampleCardContainer key={example.id} example={example}>
+            <ExampleCardBody example={example} />
+          </ExampleCardContainer>
         ))}
       </ExamplesGrid>
     </section>
