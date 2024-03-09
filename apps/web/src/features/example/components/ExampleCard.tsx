@@ -38,7 +38,7 @@ export const ExampleCardBody = ({ example }: { example: Example }) => (
       </CardTitle>
     </CardHeader>
     <CardContent>
-      <CardDescription className="overflow-scroll">
+      <CardDescription className="text-secondary-foreground">
         {example.description}
       </CardDescription>
     </CardContent>
