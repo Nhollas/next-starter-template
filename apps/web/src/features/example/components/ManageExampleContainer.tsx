@@ -2,17 +2,17 @@
 import { motion } from "framer-motion"
 import { useState } from "react"
 
+import AnimatePresenceWrapper from "@/components/animation/AnimatePresenceWrapper"
 import { CardFooter, Form } from "@/components/ui"
 
-import { useUpdateExampleMutation } from "../../api/updateExample"
+import { useUpdateExampleMutation } from "../api/updateExample"
 import {
   EditExampleForm,
   useEditExampleForm,
-} from "../../hooks/useEditExampleForm"
-import { Example } from "../../types"
-import AnimatePresenceWrapper from "../AnimatePresenceWrapper"
+} from "../hooks/useEditExampleForm"
+import { Example } from "../types"
 
-import { AnimatedEditExample } from "./AnimatedEditExample"
+import { AnimatedEditExample } from "./animation/AnimatedEditExample"
 import { DeleteExample } from "./DeleteExample"
 import { DuplicateExampleButton } from "./DuplicateExampleButton"
 import { UpdateExampleButton } from "./UpdateExampleButton"

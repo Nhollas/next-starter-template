@@ -7,7 +7,9 @@ import { Example } from "../types"
 
 const deleteExample = async (exampleId: string) => {
   try {
-    const response = await NextApiClient.build().delete(`/example/${exampleId}`)
+    const client = NextApiClient.build()
+
+    const response = await client.delete(`/example/${exampleId}`)
 
     return response.data
   } catch (error) {

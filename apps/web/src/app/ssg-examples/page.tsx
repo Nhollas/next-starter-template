@@ -4,7 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui"
 import {
   ExampleCardBody,
-  ExampleCardContainer,
+  ExampleCard,
   ExamplesGrid,
   getExamples,
 } from "@/features/example"
@@ -29,9 +29,9 @@ export default async function SSGPAGE() {
       <h1 className="text-2xl font-medium">SSG Examples Page</h1>
       <ExamplesGrid>
         {examples.map((example) => (
-          <ExampleCardContainer key={example.id} example={example}>
+          <ExampleCard key={example.id} example={example}>
             <ExampleCardBody example={example} />
-          </ExampleCardContainer>
+          </ExampleCard>
         ))}
       </ExamplesGrid>
     </section>

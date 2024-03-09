@@ -8,10 +8,10 @@ import {
   FormField,
   FormItem,
   FormMessage,
-  Textarea,
+  AutosizeTextarea,
 } from "@/components/ui"
 
-import { EditExampleForm } from "../../hooks/useEditExampleForm"
+import { EditExampleForm } from "../hooks/useEditExampleForm"
 
 export const EditExample = forwardRef<
   HTMLDivElement,
@@ -21,16 +21,16 @@ export const EditExample = forwardRef<
 >(({ form }, ref) => {
   return (
     <div ref={ref} className="flex h-full flex-col">
-      <CardHeader className="p-4">
+      <CardHeader className="p-4 pb-2">
         <FormField
           control={form.control}
           name="title"
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Textarea
+                <AutosizeTextarea
                   placeholder="Title"
-                  className="border-none px-2 text-2xl font-semibold leading-none tracking-tight outline outline-input"
+                  className="border-none p-2 text-2xl font-semibold leading-none tracking-tight outline outline-input"
                   {...field}
                 />
               </FormControl>
@@ -39,16 +39,16 @@ export const EditExample = forwardRef<
           )}
         />
       </CardHeader>
-      <CardContent className="flex h-full grow flex-col justify-between space-y-4 p-4 pt-0">
+      <CardContent className="p-4 pt-0">
         <FormField
           control={form.control}
           name="description"
           render={({ field }) => (
             <FormItem className="flex grow">
               <FormControl>
-                <Textarea
+                <AutosizeTextarea
                   placeholder="Description"
-                  className="border-none px-2 text-muted-foreground outline outline-input"
+                  className="border-none p-2 text-muted-foreground outline outline-input"
                   {...field}
                 />
               </FormControl>

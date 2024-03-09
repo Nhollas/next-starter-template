@@ -7,10 +7,9 @@ import { Example } from "../types"
 
 const duplicateExample = async (example: Example): Promise<Example> => {
   try {
-    const response = await NextApiClient.build().post(
-      `/example/duplicate`,
-      example,
-    )
+    const client = NextApiClient.build()
+
+    const response = await client.post(`/example/duplicate`, example)
 
     return response.data
   } catch (error) {

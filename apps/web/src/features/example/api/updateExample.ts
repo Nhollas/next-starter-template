@@ -7,7 +7,9 @@ import { Example } from "../types"
 
 const updateExample = async (example: Example) => {
   try {
-    const response = await NextApiClient.build().put(`/example`, example)
+    const client = NextApiClient.build()
+
+    const response = await client.put(`/example`, example)
     return response.data
   } catch (error) {
     return Promise.reject(error)
@@ -17,15 +19,12 @@ const updateExample = async (example: Example) => {
 export const useUpdateExampleMutation = (successCallback: () => void) => {
   return useMutation({
     onSuccess: (_, updatedExample) => {
-      queryClient.setQueryData(
-        ["examples"],
-        // ✅ this is the way
-        (oldData: Example[]) =>
-          oldData
-            ? oldData.map((example) =>
-                example.id === updatedExample.id ? updatedExample : example,
-              )
-            : oldData,
+      queryClient.setQueryData(["examples"], (oldData: Example[]) =>
+        oldData
+          ? oldData.map((example) =>
+              example.id === updatedExample.id ? updatedExample : example,
+            )
+          : oldData,
       )
 
       successCallback()

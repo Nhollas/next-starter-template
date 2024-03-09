@@ -15,9 +15,9 @@ import {
   AlertDialogTitle,
 } from "@/components/ui"
 
-import { useDeleteExampleMutation } from "../../api"
+import { useDeleteExampleMutation } from "../api"
 
-import { AnimatedActionButton } from "./AnimatedActionButton"
+import { AnimatedActionButton } from "./animation/AnimatedActionButton"
 
 export const DeleteExample = ({ exampleId }: { exampleId: string }) => {
   const [dialogOpen, setDialogOpen] = useState(false)

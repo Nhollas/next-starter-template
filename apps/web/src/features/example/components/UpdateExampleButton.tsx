@@ -1,9 +1,9 @@
 import { Eraser, Pencil, RotateCw, Save } from "lucide-react"
-import { Fragment } from "react"
+import { ForwardedRef, Fragment, forwardRef } from "react"
 
-import AnimatePresenceWrapper from "../AnimatePresenceWrapper"
+import AnimatePresenceWrapper from "@/components/animation/AnimatePresenceWrapper"
 
-import { AnimatedActionButton } from "./AnimatedActionButton"
+import { AnimatedActionButton } from "./animation/AnimatedActionButton"
 
 export const UpdateExampleButton = ({
   saveDisabled,
@@ -25,9 +25,11 @@ export const UpdateExampleButton = ({
         closeForm={closeForm}
         editOpen={editOpen}
       />
-      {editOpen && (
-        <SaveButton saveDisabled={saveDisabled} isSubmitting={isSubmitting} />
-      )}
+      <AnimatePresenceWrapper mode="popLayout">
+        {editOpen && (
+          <SaveButton saveDisabled={saveDisabled} isSubmitting={isSubmitting} />
+        )}
+      </AnimatePresenceWrapper>
     </Fragment>
   )
 }
@@ -64,16 +66,17 @@ function EditButton({
   )
 }
 
-function SaveButton({
-  saveDisabled,
-  isSubmitting,
-}: {
-  saveDisabled: boolean
-  isSubmitting: boolean
-}) {
-  return (
-    <AnimatePresenceWrapper mode="popLayout">
+const SaveButton = forwardRef(
+  (
+    {
+      saveDisabled,
+      isSubmitting,
+    }: { saveDisabled: boolean; isSubmitting: boolean },
+    ref: ForwardedRef<HTMLButtonElement>,
+  ) => {
+    return (
       <AnimatedActionButton
+        ref={ref}
         layout
         initial={{ opacity: 0, x: -50, scale: 0.5 }}
         animate={{ opacity: saveDisabled ? 0.5 : 1, x: 0, scale: 1 }}
@@ -94,6 +97,8 @@ function SaveButton({
         )}
         <span className="sr-only">Save</span>
       </AnimatedActionButton>
-    </AnimatePresenceWrapper>
-  )
-}
+    )
+  },
+)
+
+SaveButton.displayName = "SaveButton"

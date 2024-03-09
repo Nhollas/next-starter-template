@@ -2,13 +2,15 @@
 import { CopyPlus, RotateCw } from "lucide-react"
 import { useEffect, useState } from "react"
 
-import { useDuplicateExampleMutation } from "../../api"
-import { Example } from "../../types"
+import { useDuplicateExampleMutation } from "../api"
+import { Example } from "../types"
 
-import { AnimatedActionButton } from "./AnimatedActionButton"
+import { AnimatedActionButton } from "./animation/AnimatedActionButton"
 
 export const DuplicateExampleButton = ({ example }: { example: Example }) => {
-  const [newExampleId, setNewExampleId] = useState<string | undefined>()
+  const [newExampleId, setNewExampleId] = useState<string | undefined>(
+    undefined,
+  )
   const { mutate, isPending } = useDuplicateExampleMutation(
     (duplicatedExample) => setNewExampleId(duplicatedExample.id),
   )

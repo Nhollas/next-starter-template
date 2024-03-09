@@ -12,12 +12,12 @@ import { cn } from "@/lib/utils"
 
 import { Example } from "../types"
 
-export const ExampleCardContainer = forwardRef<
+export const ExampleCard = forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & {
     example: Example
   }
->(({ className, example, children }, ref) => (
+>(({ className, children, example }, ref) => (
   <Card
     ref={ref}
     className={cn("flex flex-col", className)}
@@ -28,7 +28,7 @@ export const ExampleCardContainer = forwardRef<
   </Card>
 ))
 
-ExampleCardContainer.displayName = "ExampleCardContainer"
+ExampleCard.displayName = "ExampleCardContainer"
 
 export const ExampleCardBody = ({ example }: { example: Example }) => (
   <Fragment>
