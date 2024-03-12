@@ -11,7 +11,7 @@ test("We can edit our examples", async ({ page }) => {
 
     await route.fulfill({ response, json: mockedExamples })
   })
-  await page.goto(`/csr-examples`)
+  await page.goto(`/examples`)
   await page.waitForResponse("**/api/examples")
 
   for (const example of mockedExamples) {

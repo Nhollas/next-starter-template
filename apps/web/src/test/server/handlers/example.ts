@@ -1,6 +1,6 @@
 import { http, HttpResponse } from "msw"
 
-import { Example } from "@/features/example"
+import { Example } from "@/app/features/example"
 import { exampleGenerator } from "@/test/data-generators"
 
 export const exampleHandlers = [

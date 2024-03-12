@@ -8,7 +8,7 @@ import type { SetupServer } from "msw/node"
 import { setupServer } from "msw/node"
 import next from "next"
 
-import { serverEnv } from "@/lib/env"
+import { serverEnv } from "@/app/lib/env"
 
 export const buildLocalUrl = (path: string, port: string) => {
   return `http://localhost:${port}${path}`

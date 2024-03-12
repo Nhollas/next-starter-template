@@ -12,7 +12,7 @@ test("We can duplicate our examples", async ({ page }) => {
     await route.fulfill({ response, json: mockedExamples })
   })
 
-  await page.goto(`/csr-examples`)
+  await page.goto(`/examples`)
   await page.waitForResponse("**/api/examples")
 
   const exampleToDuplicate = mockedExamples[0]

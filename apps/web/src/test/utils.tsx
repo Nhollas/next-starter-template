@@ -1,7 +1,7 @@
 import "@testing-library/jest-dom"
 import { render } from "@testing-library/react"
 
-import { Providers } from "@/providers"
+import { Providers } from "@/app/providers"
 
 export * from "@testing-library/react"
 
