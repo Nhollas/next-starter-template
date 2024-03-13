@@ -17,12 +17,13 @@ export const ExampleCard = forwardRef<
   React.HTMLAttributes<HTMLDivElement> & {
     example: Example
   }
->(({ className, children, example }, ref) => (
+>(({ className, children, example, ...props }, ref) => (
   <Card
     ref={ref}
-    className={cn("flex flex-col", className)}
+    className={cn("flex flex-col bg-secondary", className)}
     data-testid={`example-card-${example.id}`}
     id={example.id}
+    {...props}
   >
     {children}
   </Card>

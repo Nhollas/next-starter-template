@@ -9,7 +9,7 @@ const duplicateExample = async (example: Example): Promise<Example> => {
   try {
     const client = NextApiClient.build()
 
-    const response = await client.post(`/example/duplicate`, example)
+    const response = await client.post<Example>(`/example/duplicate`, example)
 
     return response.data
   } catch (error) {

@@ -3,20 +3,20 @@ import { useMutation } from "@tanstack/react-query"
 import { NextApiClient } from "@/app/lib/clients/next-api-client"
 import { queryClient } from "@/app/lib/react-query"
 
-import { Example } from "../../../features/example/types"
+import { Example } from "../types"
 
-const updateExample = async (example: Example) => {
+const updateExample = async (example: Example): Promise<Example> => {
   try {
     const client = NextApiClient.build()
 
-    const response = await client.put(`/example`, example)
+    const response = await client.put<Example>(`/example`, example)
     return response.data
   } catch (error) {
     return Promise.reject(error)
   }
 }
 
-export const useUpdateExampleMutation = (successCallback: () => void) => {
+export const useUpdateExampleMutation = (successCallback?: () => void) => {
   return useMutation({
     onSuccess: (_, updatedExample) => {
       queryClient.setQueryData(["examples"], (oldData: Example[]) =>
@@ -27,7 +27,7 @@ export const useUpdateExampleMutation = (successCallback: () => void) => {
           : oldData,
       )
 
-      successCallback()
+      successCallback && successCallback()
     },
     onError: (_, __, context: any) => {
       if (context?.previousExamples) {

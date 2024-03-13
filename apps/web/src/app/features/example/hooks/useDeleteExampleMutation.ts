@@ -5,19 +5,17 @@ import { queryClient } from "@/app/lib/react-query"
 
 import { Example } from "../types"
 
-const deleteExample = async (exampleId: string) => {
+const deleteExample = async (exampleId: string): Promise<void> => {
   try {
     const client = NextApiClient.build()
 
-    const response = await client.delete(`/example/${exampleId}`)
-
-    return response.data
+    await client.delete(`/example/${exampleId}`)
   } catch (error) {
     return Promise.reject(error)
   }
 }
 
-export const useDeleteExampleMutation = (successCallback: () => void) => {
+export const useDeleteExampleMutation = (successCallback?: () => void) => {
   return useMutation({
     onSuccess: (_, exampleId) => {
       queryClient.setQueryData(["examples"], (oldData: Example[]) =>
@@ -26,7 +24,7 @@ export const useDeleteExampleMutation = (successCallback: () => void) => {
           : oldData,
       )
 
-      successCallback()
+      successCallback && successCallback()
     },
     onError: (_, __, context: any) => {
       if (context?.previousExamples) {

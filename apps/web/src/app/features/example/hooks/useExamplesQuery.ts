@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query"
 
 import { NextApiClient } from "@/app/lib/clients/next-api-client"
 
-import { Example } from "../../../features/example/types"
+import { Example } from "../types"
 
-export const getExamples = async (axiosClient = NextApiClient) => {
+const getExamples = async (axiosClient = NextApiClient): Promise<Example[]> => {
   try {
     const client = axiosClient.build()
 
@@ -15,7 +15,6 @@ export const getExamples = async (axiosClient = NextApiClient) => {
     return Promise.reject(error)
   }
 }
-
 export function useExamplesQuery() {
   return useQuery({
     queryKey: ["examples"],

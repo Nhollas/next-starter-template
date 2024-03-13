@@ -20,7 +20,6 @@ export const ExampleCards = ({ examples }: { examples: Example[] }) => (
         }}
         key={example.id}
         example={example}
-        className="bg-secondary"
       >
         <ManageExampleContainer example={example}>
           <ExampleCardBody example={example} />
