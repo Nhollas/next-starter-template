@@ -30,12 +30,12 @@ const CardHeader = React.forwardRef<
 CardHeader.displayName = "CardHeader"
 
 type CardTitleProps = {
-  level?: "1" | "2" | "3" | "4" | "5" | "6"
+  slot?: "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
 } & React.HTMLAttributes<HTMLHeadingElement>
 
 const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
-  ({ level = "2", className, ...props }, ref) => {
-    const Tag = `h${level}` as const
+  ({ slot = "h2", className, ...props }, ref) => {
+    const Tag = slot
 
     return (
       <Tag
