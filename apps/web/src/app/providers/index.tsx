@@ -1,5 +1,7 @@
 import QueryClientProvider from "./QueryClientProvider"
 
-export const Providers = ({ children }: { children: React.ReactNode }) => {
+const Providers = ({ children }: { children: React.ReactNode }) => {
   return <QueryClientProvider>{children}</QueryClientProvider>
 }
+
+export default Providers
