@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight } from "lucide-react"
+import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
 import { Button } from "@/app/components/ui"
@@ -14,17 +14,8 @@ export default function ExamplesPage() {
             Home
           </Link>
         </Button>
-        <Button variant="outline" asChild>
-          <Link
-            href="/ssr-examples"
-            className="flex flex-row items-start gap-x-2"
-          >
-            SSR Examples
-            <ArrowRight className="h-4 w-4" />
-          </Link>
-        </Button>
       </div>
-      <h1 className="text-2xl font-medium">Example Page</h1>
+      <h1 className="text-2xl font-medium">Examples Page</h1>
       <ExamplesGrid>
         <ExamplesContainer />
       </ExamplesGrid>

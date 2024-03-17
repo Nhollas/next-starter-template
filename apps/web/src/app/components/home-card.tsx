@@ -1,8 +1,13 @@
 import { Layout } from "lucide-react"
 import Link from "next/link"
 
-import { Button } from "./ui/button"
-import { Card, CardHeader, CardTitle, CardDescription } from "./ui/card"
+import {
+  Button,
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/app/components/ui"
 
 export function HomeCard() {
   return (
@@ -15,11 +20,11 @@ export function HomeCard() {
         <CardDescription>{new Date().toDateString()}</CardDescription>
         <Button variant="outline" asChild>
           <Link
-            href="/csr-examples"
+            href="/examples"
             className="ml-auto flex flex-row items-start gap-x-2"
           >
             <Layout className="h-4 w-4" />
-            Example Page
+            Examples Page
           </Link>
         </Button>
       </CardHeader>
