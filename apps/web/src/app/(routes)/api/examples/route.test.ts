@@ -3,9 +3,16 @@
  */
 import { GET } from "./route"
 
+jest.mock("@/app/lib/utils", () => ({
+  ...jest.requireActual("@/app/lib/utils"),
+  pause: jest.fn(() => Promise.resolve()),
+}))
+
 describe("/examples API route", () => {
   it("should return some examples", async () => {
-    const res = await GET()
+    const resPromise = GET()
+
+    const res = await resPromise
 
     expect(res.status).toBe(200)
 

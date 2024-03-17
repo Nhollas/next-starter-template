@@ -1,3 +1,4 @@
+import { pause } from "@/app/lib/utils"
 import { exampleGenerator } from "@/test/data-generators"
 
 export async function GET(
@@ -10,7 +11,7 @@ export async function GET(
 }
 
 export async function DELETE() {
-  await new Promise((resolve) => setTimeout(resolve, 500))
+  await pause(1000)
 
   return Response.json({}, { status: 200 })
 }

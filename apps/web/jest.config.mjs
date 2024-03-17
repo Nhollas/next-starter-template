@@ -16,10 +16,7 @@ const config = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
-  testMatch: [
-    "<rootDir>/src/app/**/*.test.ts",
-    "<rootDir>/src/app/**/*.test.tsx",
-  ],
+  testMatch: ["<rootDir>/src/**/*.test.tsx", "<rootDir>/src/**/*.test.ts"],
   testEnvironmentOptions: {
     customExportConditions: [""],
   },

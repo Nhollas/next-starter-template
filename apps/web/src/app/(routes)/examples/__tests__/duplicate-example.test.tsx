@@ -3,7 +3,7 @@ import { HttpResponse, http } from "msw"
 
 import { NextApiClient } from "@/app/lib/clients/next-api-client"
 import { exampleGenerator } from "@/test/data-generators"
-import { server } from "@/test/server"
+import { server, withJsonBody } from "@/test/server"
 import {
   fireEvent,
   renderWithProviders,
@@ -48,13 +48,16 @@ it("Successfully duplicating an example:", async () => {
   })
 
   server.use(
-    http.post(NextApiClient.createUrl("/example/duplicate"), () =>
-      HttpResponse.json(
-        exampleGenerator({
-          ...exampleToDuplicate,
-          id: faker.string.uuid(),
-        }),
-      ),
+    http.post(
+      NextApiClient.createUrl("/example/duplicate"),
+      withJsonBody(exampleToDuplicate, () => {
+        return HttpResponse.json(
+          exampleGenerator({
+            ...exampleToDuplicate,
+            id: faker.string.uuid(),
+          }),
+        )
+      }),
     ),
   )
 

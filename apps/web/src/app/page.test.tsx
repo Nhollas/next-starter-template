@@ -3,12 +3,9 @@ import { renderWithProviders, resolveComponent, screen } from "@/test/utils"
 import Home from "./page"
 
 test("Our page has the title of 'Nextjs Starter Template'", async () => {
-  const HomePageResolved = await resolveComponent(Home, {
-    language: "es",
-    country: "ES",
-  })
+  const ResolvedHome = await resolveComponent(Home)
 
-  renderWithProviders(<HomePageResolved />)
+  renderWithProviders(<ResolvedHome />)
 
   expect(screen.getByText("Nextjs Starter Template")).toBeInTheDocument()
 

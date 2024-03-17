@@ -7,6 +7,11 @@ import modelFactory from "@/test/model-factory"
 
 import { DELETE, GET } from "./route"
 
+jest.mock("@/app/lib/utils", () => ({
+  ...jest.requireActual("@/app/lib/utils"),
+  pause: jest.fn(() => Promise.resolve()),
+}))
+
 describe("/example/:id API route", () => {
   it("should return an example", async () => {
     const mockedRequest = modelFactory.request()
