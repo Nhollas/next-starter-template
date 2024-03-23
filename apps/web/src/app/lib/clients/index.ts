@@ -7,9 +7,9 @@ export interface Client {
 }
 
 export const buildClient =
-  (base: string, headers?: HeadersInit) =>
+  (base: string, defaultConfig?: RequestInit) =>
   () =>
   (url: string, config?: RequestInit) =>
-    fetch(base + url, { headers, ...config })
+    fetch(base + url, { ...defaultConfig, ...config })
 
 export const baseUrl = (base: string) => (path: string) => `${base}${path}`
