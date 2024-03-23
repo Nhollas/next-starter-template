@@ -5,14 +5,15 @@ import { parse } from "url"
 import { Page, test as base } from "@playwright/test"
 import { http } from "msw"
 import type { SetupServer } from "msw/node"
-import { setupServer } from "msw/node"
 import next from "next"
 
 import { serverEnv } from "@/app/lib/env"
+import { server } from "@/test/server"
 
-export const buildLocalUrl = (path: string, port: string) => {
-  return `http://localhost:${port}${path}`
-}
+const { DRAFTMODE_SECRET } = serverEnv()
+
+const buildLocalUrl = (port: string, path: string = "") =>
+  `http://localhost:${port}${path}`
 
 export const test = base.extend<
   { http: typeof http },
@@ -23,7 +24,7 @@ export const test = base.extend<
   }
 >({
   baseURL: async ({ port }, use) => {
-    await use(buildLocalUrl("", port))
+    await use(buildLocalUrl(port))
   },
   port: [
     async ({}, use) => {
@@ -43,6 +44,7 @@ export const test = base.extend<
           resolve(server)
         })
       })
+
       const port = String((server.address() as AddressInfo).port)
       await use(port)
     },
@@ -51,7 +53,7 @@ export const test = base.extend<
 
   requestInterceptor: [
     async ({}, use) => {
-      const requestInterceptor = setupServer()
+      const requestInterceptor = server
 
       requestInterceptor.listen({
         onUnhandledRequest: "warn",
@@ -64,16 +66,13 @@ export const test = base.extend<
   http,
   enablePreviewMode: [
     async ({ port }, use) => {
-      async function enablePreviewMode(
-        page: Page,
-        base = `http://localhost:${port}`,
-      ) {
+      async function enablePreviewMode(page: Page) {
         await page.goto(
-          `${base}/api/preview?secret=${serverEnv().DRAFTMODE_SECRET}`,
+          buildLocalUrl(port, `/api/preview?secret=${DRAFTMODE_SECRET}`),
         )
 
         return async function disablePreviewMode() {
-          await page.goto(`${base}/api/exit-preview`)
+          await page.goto(buildLocalUrl(port, "/api/exit-preview"))
         }
       }
 

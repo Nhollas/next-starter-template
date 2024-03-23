@@ -16,7 +16,9 @@ const updateExample = async (example: Example): Promise<Example> => {
   }
 }
 
-export const useUpdateExampleMutation = (successCallback?: () => void) => {
+export const useUpdateExampleMutation = (
+  successCallback?: (updatedExample: Example) => void,
+) => {
   return useMutation({
     onSuccess: (_, updatedExample) => {
       queryClient.setQueryData(["examples"], (oldData: Example[]) =>
@@ -27,7 +29,7 @@ export const useUpdateExampleMutation = (successCallback?: () => void) => {
           : oldData,
       )
 
-      successCallback && successCallback()
+      successCallback && successCallback(updatedExample)
     },
     onError: (_, __, context: any) => {
       if (context?.previousExamples) {

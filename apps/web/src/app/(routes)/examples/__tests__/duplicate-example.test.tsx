@@ -16,14 +16,6 @@ import Page from "../page"
 
 global.window.HTMLElement.prototype.scrollIntoView = function () {}
 
-/* 
-    Requirement for feature:
-
-    [1] We should start the duplication of an example card with a button.
-    [2] We should be able to see the duplicated example card after clicking the button.
-    [3] The duplicated example card should have the same content as the original example card.
-    [4] The duplicated example card should be placed at the end of the list of example cards.
-*/
 it("Successfully duplicating an example:", async () => {
   const exampleToDuplicate = exampleGenerator()
 
@@ -35,7 +27,7 @@ it("Successfully duplicating an example:", async () => {
 
   renderWithProviders(<Page />)
 
-  // [1]
+  // [1] We should start the duplication of an example card with a button.
   await waitFor(() => {
     const parentElement = screen.getByTestId(
       `example-card-${exampleToDuplicate.id}`,
@@ -61,7 +53,7 @@ it("Successfully duplicating an example:", async () => {
     ),
   )
 
-  // [2]
+  // [2] We should be able to see the duplicated example card after clicking the button.
   fireEvent.click(
     within(
       screen.getByTestId(`example-card-${exampleToDuplicate.id}`),
@@ -70,8 +62,8 @@ it("Successfully duplicating an example:", async () => {
     }),
   )
 
+  // [3] The duplicated example card should have the same content as the original example card.
   await waitFor(() => {
-    // [3]
     expect(
       screen.getAllByRole("heading", { name: exampleToDuplicate.title }),
     ).toHaveLength(2)
@@ -85,13 +77,9 @@ it("Successfully duplicating an example:", async () => {
   expect(headings).toHaveLength(2)
 
   const cards = screen.getAllByTestId(/example-card-/i)
-  const lastCard = cards[cards.length - 1]
+  const lastCard = cards[cards.length - 1]!
 
-  if (!lastCard) {
-    throw new Error("A last card could not be found.")
-  }
-
-  // [4]
+  // [4] The duplicated example card should be placed at the end of the list of example cards.
   expect(
     within(lastCard).getByRole("heading", {
       name: exampleToDuplicate.title,

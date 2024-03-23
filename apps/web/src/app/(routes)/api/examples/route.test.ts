@@ -10,9 +10,7 @@ jest.mock("@/app/lib/utils", () => ({
 
 describe("/examples API route", () => {
   it("should return some examples", async () => {
-    const resPromise = GET()
-
-    const res = await resPromise
+    const res = await GET()
 
     expect(res.status).toBe(200)
 

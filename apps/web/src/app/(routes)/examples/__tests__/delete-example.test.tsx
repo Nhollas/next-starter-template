@@ -13,14 +13,6 @@ import {
 
 import Page from "../page"
 
-/* 
-    Requirement for feature:
-
-    [1] We should start the deletion of an example card with a button.
-    [2] We should be prompted with a modal asking to confirm that we want to delete the example.
-    [3] We will then need to confirm the deletion of the example.
-    [4] The deleted example card should be removed from the list of example cards.
-*/
 it("Successfully deleting an example:", async () => {
   const exampleToDelete = exampleGenerator()
 
@@ -35,7 +27,7 @@ it("Successfully deleting an example:", async () => {
 
   renderWithProviders(<Page />)
 
-  // [1]
+  // [1] We should start the deletion of an example card with a button.
   await waitFor(() => {
     const parentElement = screen.getByTestId(
       `example-card-${exampleToDelete.id}`,
@@ -47,7 +39,7 @@ it("Successfully deleting an example:", async () => {
     expect(deleteButton).toBeInTheDocument()
   })
 
-  // [2]
+  // [2] We should be prompted with a modal asking to confirm that we want to delete the example.
   fireEvent.click(
     within(screen.getByTestId(`example-card-${exampleToDelete.id}`)).getByRole(
       "button",
@@ -64,10 +56,10 @@ it("Successfully deleting an example:", async () => {
     expect(modal).toBeInTheDocument()
   })
 
-  // [3]
+  // [3] We will then need to confirm the deletion of the example.
   fireEvent.click(screen.getByRole("button", { name: "Confirm" }))
 
-  // [4]
+  // [4] The deleted example card should be removed from the list of example cards.
   await waitFor(() => {
     expect(
       screen.queryByRole("heading", { name: exampleToDelete.title }),

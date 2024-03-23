@@ -1,10 +1,9 @@
-import { Example } from "@/app/features/example"
+import { updateExampleApiSchema } from "@/app/features/example"
+import { withValidation } from "@/app/lib/api"
 import { pause } from "@/app/lib/utils"
 
-export async function PUT(request: Request) {
-  const updatedExample = (await request.json()) as Example
-
+export const PUT = withValidation(async (request, validatedBody) => {
   await pause(1000)
 
-  return Response.json(updatedExample)
-}
+  return Response.json(validatedBody)
+}, updateExampleApiSchema)

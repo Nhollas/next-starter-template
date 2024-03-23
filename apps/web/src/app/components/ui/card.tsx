@@ -34,17 +34,13 @@ type CardTitleProps = {
 } & React.HTMLAttributes<HTMLHeadingElement>
 
 const CardTitle = React.forwardRef<HTMLHeadingElement, CardTitleProps>(
-  ({ slot = "h2", className, ...props }, ref) => {
-    const Tag = slot
-
-    return (
-      <Tag
-        ref={ref}
-        className={cn("font-semibold leading-none tracking-tight", className)}
-        {...props}
-      />
-    )
-  },
+  ({ slot: Slot = "h2", className, ...props }, ref) => (
+    <Slot
+      ref={ref}
+      className={cn("font-semibold leading-none tracking-tight", className)}
+      {...props}
+    />
+  ),
 )
 
 CardTitle.displayName = "CardTitle"

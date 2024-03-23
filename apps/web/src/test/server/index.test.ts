@@ -45,7 +45,6 @@ describe("withJsonBody", () => {
     try {
       await sendRequest(unexpectedBody)
     } catch (error) {
-      // Ignore the error
       expect(error).toBeDefined()
     }
 

@@ -14,7 +14,7 @@ function createMockRequest(overrides?: Partial<Request>): Request {
     signal: jest.fn() as any,
     url: "",
     clone: function (): Request {
-      throw new Error("Function not implemented.")
+      return createMockRequest(overrides)
     },
     body: null,
     bodyUsed: false,

@@ -4,12 +4,12 @@ import { useState } from "react"
 
 import AnimatePresenceWrapper from "@/app/components/animation/AnimatePresenceWrapper"
 import { CardFooter, Form } from "@/app/components/ui"
-import { useUpdateExampleMutation } from "@/app/features/example"
 
 import {
+  useUpdateExampleMutation,
   EditExampleForm,
   useEditExampleForm,
-} from "../hooks/useEditExampleForm"
+} from "../hooks"
 import { Example } from "../types"
 
 import { AnimatedEditExample } from "./animation/AnimatedEditExample"
@@ -26,7 +26,6 @@ export const ManageExampleContainer = ({
 }) => {
   const form = useEditExampleForm(example)
   const {
-    watch,
     formState: { isDirty, isSubmitting },
   } = form
 
@@ -35,9 +34,9 @@ export const ManageExampleContainer = ({
   const closeForm = () => setEditOpen(false)
   const openForm = () => setEditOpen(true)
 
-  const { mutateAsync } = useUpdateExampleMutation(() => {
+  const { mutateAsync } = useUpdateExampleMutation((updatedExample) => {
     closeForm()
-    form.reset({ ...watch() })
+    form.reset({ ...updatedExample })
   })
 
   const saveDisabled = !isDirty || isSubmitting

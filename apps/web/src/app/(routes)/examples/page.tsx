@@ -1,7 +1,7 @@
 import { ArrowLeft } from "lucide-react"
 import Link from "next/link"
 
-import { Button } from "@/app/components/ui"
+import { Button, Heading } from "@/app/components/ui"
 import { ExamplesContainer, ExamplesGrid } from "@/app/features/example"
 
 export default function ExamplesPage() {
@@ -15,7 +15,9 @@ export default function ExamplesPage() {
           </Link>
         </Button>
       </div>
-      <h1 className="text-2xl font-medium">Examples Page</h1>
+      <Heading slot="h1" className="text-2xl font-medium">
+        Examples Page
+      </Heading>
       <ExamplesGrid>
         <ExamplesContainer />
       </ExamplesGrid>
