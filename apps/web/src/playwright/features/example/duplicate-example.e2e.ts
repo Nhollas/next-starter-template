@@ -13,13 +13,10 @@ test("We can duplicate our examples", async ({ page }) => {
   })
 
   await page.goto(`/examples`)
-  await page.waitForResponse("**/api/examples")
 
   const form = page.getByTestId(`example-card-${exampleToDuplicate.id}`)
 
   await form.getByRole("button", { name: "Duplicate" }).click()
-
-  await page.waitForResponse("**/api/example/duplicate")
 
   expect(
     await page.getByRole("heading", { name: exampleToDuplicate.title }).all(),

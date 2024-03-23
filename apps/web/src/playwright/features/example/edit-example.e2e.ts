@@ -12,7 +12,6 @@ test("We can edit our examples", async ({ page }) => {
     await route.fulfill({ response, json: mockedExamples })
   })
   await page.goto(`/examples`)
-  await page.waitForResponse("**/api/examples")
 
   for (const example of mockedExamples) {
     const form = page.getByTestId(`example-card-${example.id}`)
@@ -27,8 +26,6 @@ test("We can edit our examples", async ({ page }) => {
       .fill(updatedDescription)
 
     await form.getByRole("button", { name: "Save" }).click()
-
-    await page.waitForResponse("**/api/example")
 
     await expect(
       form.getByRole("heading", { name: updatedTitle }),

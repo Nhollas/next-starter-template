@@ -13,7 +13,6 @@ test("We can delete our examples", async ({ page }) => {
   })
 
   await page.goto(`/examples`)
-  await page.waitForResponse("**/api/examples")
 
   for (const example of mockedExamples) {
     const form = page.getByTestId(`example-card-${example.id}`)
