@@ -8,9 +8,9 @@ const getExamples = async (axiosClient = NextApiClient): Promise<Example[]> => {
   try {
     const client = axiosClient.build()
 
-    const response = await client.get<Example[]>(`/examples`)
+    const response = await client(`/examples`)
 
-    return response.data
+    return response.json()
   } catch (error) {
     return Promise.reject(error)
   }

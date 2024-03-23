@@ -15,6 +15,13 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
   ),
 )
 
+const Paragraph = React.forwardRef<
+  HTMLParagraphElement,
+  React.HTMLProps<HTMLParagraphElement>
+>(({ className, ...props }, ref) => (
+  <p ref={ref} className={cn("leading-normal", className)} {...props} />
+))
+
 Heading.displayName = "Heading"
 
-export { Heading }
+export { Heading, Paragraph }

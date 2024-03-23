@@ -9,7 +9,9 @@ const deleteExample = async (exampleId: string): Promise<void> => {
   try {
     const client = NextApiClient.build()
 
-    await client.delete(`/example/${exampleId}`)
+    await client(`/example/${exampleId}`, {
+      method: "DELETE",
+    })
   } catch (error) {
     return Promise.reject(error)
   }

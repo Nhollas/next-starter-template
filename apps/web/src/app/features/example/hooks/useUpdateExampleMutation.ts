@@ -9,8 +9,11 @@ const updateExample = async (example: Example): Promise<Example> => {
   try {
     const client = NextApiClient.build()
 
-    const response = await client.put<Example>(`/example`, example)
-    return response.data
+    const response = await client(`/example`, {
+      body: JSON.stringify(example),
+      method: "PUT",
+    })
+    return response.json()
   } catch (error) {
     return Promise.reject(error)
   }

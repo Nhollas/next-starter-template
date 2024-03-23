@@ -42,11 +42,15 @@ describe("withJsonBody", () => {
       ),
     )
 
+    let error = undefined
+
     try {
       await sendRequest(unexpectedBody)
-    } catch (error) {
-      expect(error).toBeDefined()
+    } catch (err) {
+      error = err
     }
+
+    expect(error).toBeDefined()
 
     expect(resolver).not.toHaveBeenCalled()
   })
