@@ -1,14 +1,17 @@
 import { useQuery } from "@tanstack/react-query"
 
+import { Client } from "@/app/lib/clients"
 import { NextApiClient } from "@/app/lib/clients/next-api-client"
 
 import { Example } from "../types"
 
-const getExamples = async (axiosClient = NextApiClient): Promise<Example[]> => {
+const getExamples = async (
+  fetchClient: Client = NextApiClient,
+): Promise<Example[]> => {
   try {
-    const client = axiosClient.build()
+    const fetch = fetchClient.build()
 
-    const response = await client(`/examples`)
+    const response = await fetch(`/examples`)
 
     return response.json()
   } catch (error) {

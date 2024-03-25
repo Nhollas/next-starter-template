@@ -5,7 +5,7 @@ import { handlers } from "./handlers"
 
 export const server = setupServer(...handlers)
 
-function isEqual(a: any, b: any) {
+function isEqual(a: unknown, b: unknown) {
   return JSON.stringify(a) === JSON.stringify(b)
 }
 

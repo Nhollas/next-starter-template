@@ -7,10 +7,10 @@ import { Example } from "../types"
 
 const updateExample = async (example: Example): Promise<Example> => {
   try {
-    const client = NextApiClient.build()
+    const fetch = NextApiClient.build()
 
-    const response = await client(`/example`, {
-      body: JSON.stringify(example),
+    const response = await fetch(`/example`, {
+      body: example,
       method: "PUT",
     })
     return response.json()
